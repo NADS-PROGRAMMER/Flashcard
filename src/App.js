@@ -2,10 +2,15 @@ import Header from './Components/Header'
 import Categories from './Components/Categories'
 import AddFlashcardModal from './Components/AddFlashcardModal'
 import './index.css'
-import React, {useReducer} from 'react'
+import React, {useEffect, useReducer} from 'react'
 
 function App() {
 
+  useEffect(() => {
+
+    localStorage.setItem('categories', [])
+  }, [])
+  
   const reducer = (state, action) => {
 
     // Opens the modal
@@ -35,12 +40,9 @@ function App() {
       let originalLength = 25
       let newCategoryLength = originalLength - action.payload.length
 
-      if (newCategoryLength < 0)
-        return state
-
       return {
         ...state,
-        categoryLength: newCategoryLength
+        categoryLength:  newCategoryLength
       }
     }
 
@@ -58,6 +60,21 @@ function App() {
         descriptionLength: newDescriptionLength
       }
     }
+
+    if (action.type === 'ADD_CATEGORY') {
+
+      const newCategories = [...state.categories, action.payload]
+
+      localStorage.setItem('categories', JSON.stringify(newCategories))
+
+      // console.log(JSON.parse(localStorage.getItem('categories')))
+
+      return {
+        ...state,
+        categories: newCategories,
+        isModalOpen: false,
+      }
+    }
   }
   const initialState = {
 
@@ -69,10 +86,16 @@ function App() {
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
+  // for testing
+  useEffect(() => {
+    console.log(state.categories)
+  },[state.categories])
+
   return (
     <div className="">
       <Header openModal={dispatch}/>
-      <Categories />
+      <Categories categories={JSON.parse(localStorage.getItem('categories'))}/>
+
       {state.isModalOpen && <AddFlashcardModal categoryLength={state.categoryLength} descriptionLength={state.descriptionLength} isModalOpen={state.isModalOpen} showModal={dispatch}/>}
     </div>
   );

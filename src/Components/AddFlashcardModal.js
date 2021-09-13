@@ -9,13 +9,22 @@ function AddFlashcardModal({categoryLength, descriptionLength, isModalOpen, show
    const [description, setDescription] = useState('')
 
     useEffect(() => {
-
+        
         if (!isModalOpen) {
             setCategory('')
             setDescription('')
         }
     }, [isModalOpen])
 
+    useEffect(() => {
+
+        showModal({type: 'CHANGE_CATEGORY_VALUE', payload: category})
+    }, [category])
+
+    useEffect(() => {
+        showModal({type: 'CHANGE_DESCRIPTION_VALUE', payload: description})
+    }, [description])
+    
     return (
         <div className="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-green-100 px-3 py-2 border-2 border-green-500 flex flex-col gap-4 sm:w-96 drop-shadow-lg shadow-lg">
 
@@ -25,16 +34,10 @@ function AddFlashcardModal({categoryLength, descriptionLength, isModalOpen, show
 
                 <small>{categoryLength}/25</small>
 
-                <input value={category}  onChange={(e) => {
+                <input value={category}  onInput={(e) => {
 
-                    // checks if the user press the backspace button so that we can change the value of the 'category'
-                    if (e.key === 'Backspace' || e.key === 'Delete')
-                        setCategory(e.target.value)
-                    else if (categoryLength > 0) 
-                        setCategory(e.target.value)
-
-                    showModal({type: 'CHANGE_CATEGORY_VALUE', payload: e.target.value})
-                       
+                    25 - e.target.value.length === -1 ? setCategory(prevValue => prevValue) : setCategory(e.target.value)
+                    
                 }} className="border border-black py-2 px-1" type="text" name="" id="" />
             </section>
 
@@ -44,20 +47,20 @@ function AddFlashcardModal({categoryLength, descriptionLength, isModalOpen, show
 
                 <small>{descriptionLength}/45</small>
 
-                <textarea value={description} onChange={(e) => {
+                <textarea value={description} onInput={(e) => {
 
-                    if (e.key === 'Backspace' || e.key === 'Delete')
-                        setDescription(e.target.value)
-                    else if (descriptionLength > 0) 
-                        setDescription(e.target.value)
+                    45 - e.target.value.length === -1 ? setDescription(prevValue => prevValue) : setDescription(e.target.value)
 
-                    showModal({type: 'CHANGE_DESCRIPTION_VALUE', payload: e.target.value})
                 }} className="border border-black py-2 px-1" name="" id="" cols="30" rows="3"></textarea>
             </section>
             
             {/* BUTTON SECTION */}
             <section className="flex gap-2">
-                <Button className="bg-green-300 font-bold py-2 px-3 hover:bg-green-400 shadow" text="Add Question"/>
+                <Button handler={() => {
+                    showModal({type: 'ADD_CATEGORY', payload: {category: category, description: description, id: new Date().getTime().toString, questions: {}}})
+                }}
+                
+                className="bg-green-300 font-bold py-2 px-3 hover:bg-green-400 shadow" text="Add Question"/>
 
                 <Button handler={() => showModal({type: "CLOSE_MODAL"})}
 
