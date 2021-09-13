@@ -2,9 +2,11 @@ import React from 'react'
 import Button from './Button'
 
 function Categories() {
+    // flex flex-wrap gap-4 items-stretch
     return (
-        <div className="flex flex-wrap gap-4 items-stretch">
-            <section className="flex flex-col gap-3 bg-green-100 py-5 px-3 hover:scale-150 border-2 border-green-900 max-w-sm w-full">
+        <div className="flex flex-wrap gap-4 items-stretch px-1 md:px-8">
+
+            <section className="flex flex-col jusitfy-around  gap-3 bg-green-100 py-5 px-3 hover:scale-150 border-2 border-green-900 max-w-sm w-full">
                 <section>
                     <h1 className="text-2xl font-medium">Web Development</h1>
                     <p className="font-semibold text-blue-900">This is about Web Development</p>

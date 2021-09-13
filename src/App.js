@@ -10,9 +10,15 @@ function App() {
 
     // Opens the modal
     if (action.type === 'SHOW_MODAL') {
+
+      let categoryLength = 25
+      let descriptionLength = 45
+
       return {
         ...state,
         isModalOpen: true,
+        categoryLength: categoryLength,
+        descriptionLength: descriptionLength,
       }
     }
     // Closes the modal
@@ -22,19 +28,52 @@ function App() {
         isModalOpen: false,
       }
     }
+
+    // CHANGE THE CATEGORY LENGTH VALUE
+    if (action.type === 'CHANGE_CATEGORY_VALUE') {
+
+      let originalLength = 25
+      let newCategoryLength = originalLength - action.payload.length
+
+      if (newCategoryLength < 0)
+        return state
+
+      return {
+        ...state,
+        categoryLength: newCategoryLength
+      }
+    }
+
+    // CHANGE THE CATEGORY LENGTH VALUE
+    if (action.type === 'CHANGE_DESCRIPTION_VALUE') {
+ 
+      let originalLength = 45
+      let newDescriptionLength = originalLength - action.payload.length
+
+      if (newDescriptionLength < 0)
+        return state
+
+      return {
+        ...state,
+        descriptionLength: newDescriptionLength
+      }
+    }
   }
   const initialState = {
 
+    categories: [],
     isModalOpen: false,
+    categoryLength: 25,
+    descriptionLength: 45,
   }
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
   return (
-    <div className="py-4 px-4">
+    <div className="">
       <Header openModal={dispatch}/>
       <Categories />
-      {state.isModalOpen && <AddFlashcardModal showModal={dispatch}/>}
+      {state.isModalOpen && <AddFlashcardModal categoryLength={state.categoryLength} descriptionLength={state.descriptionLength} isModalOpen={state.isModalOpen} showModal={dispatch}/>}
     </div>
   );
 }
