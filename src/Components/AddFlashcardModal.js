@@ -30,9 +30,12 @@ function AddFlashcardModal({categoryLength, descriptionLength, isModalOpen, show
 
             {/* TEXTFIELD AREA */}
             <section className="flex flex-col">
-                <label className="font-medium" htmlFor="question">Category: </label>
 
-                <small>{categoryLength}/25</small>
+                <section className="flex items-center justify-between">
+                    <label className="font-medium" htmlFor="question">Category: </label>
+
+                    <small>{categoryLength}/25</small>
+                </section>
 
                 <input value={category}  onInput={(e) => {
 
@@ -43,10 +46,12 @@ function AddFlashcardModal({categoryLength, descriptionLength, isModalOpen, show
 
             {/* TEXT AREA */}
             <section className="flex flex-col">
-                <label className="font-medium" htmlFor="answer">Short Description: </label>
 
-                <small>{descriptionLength}/45</small>
+                <section className="flex items-center justify-between">
+                    <label className="font-medium" htmlFor="answer">Short Description: </label>
 
+                    <small>{descriptionLength}/45</small>
+                </section>
                 <textarea value={description} onInput={(e) => {
 
                     45 - e.target.value.length === -1 ? setDescription(prevValue => prevValue) : setDescription(e.target.value)
@@ -57,7 +62,8 @@ function AddFlashcardModal({categoryLength, descriptionLength, isModalOpen, show
             {/* BUTTON SECTION */}
             <section className="flex gap-2">
                 <Button handler={() => {
-                    showModal({type: 'ADD_CATEGORY', payload: {category: category, description: description, id: new Date().getTime().toString, questions: {}}})
+
+                    showModal({type: 'ADD_CATEGORY', payload: {category: category, description: description, questions: {}}})
                 }}
                 
                 className="bg-green-300 font-bold py-2 px-3 hover:bg-green-400 shadow" text="Add Question"/>

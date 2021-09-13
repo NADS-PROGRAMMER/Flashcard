@@ -5,11 +5,6 @@ import './index.css'
 import React, {useEffect, useReducer} from 'react'
 
 function App() {
-
-  useEffect(() => {
-
-    localStorage.setItem('categories', [])
-  }, [])
   
   const reducer = (state, action) => {
 
@@ -63,11 +58,12 @@ function App() {
 
     if (action.type === 'ADD_CATEGORY') {
 
-      const newCategories = [...state.categories, action.payload]
+      const newCategories = [...state.categories, {...action.payload, id: new Date().getTime().toString()}]
 
       localStorage.setItem('categories', JSON.stringify(newCategories))
 
-      // console.log(JSON.parse(localStorage.getItem('categories')))
+      console.log(typeof JSON.parse(localStorage.getItem('categories')))
+      console.log(JSON.parse(localStorage.getItem('categories'))[1])
 
       return {
         ...state,
@@ -75,10 +71,26 @@ function App() {
         isModalOpen: false,
       }
     }
+
+    // HERE'S THE ACTION FOR REMOVING THE SPECIFIC CATEGORY BASED ON ID.
+    if (action.type === 'REMOVE_CATEGORY') {
+
+      const newCategories = JSON.parse(localStorage.getItem('categories')).filter(category => {
+
+        return category.id !== action.payload
+      })
+      
+      localStorage.setItem('categories', JSON.stringify(newCategories))
+      return {
+        ...state,
+        categories: newCategories
+      }
+    }
   }
+
   const initialState = {
 
-    categories: [],
+    categories: JSON.parse(localStorage.getItem('categories')) || [],
     isModalOpen: false,
     categoryLength: 25,
     descriptionLength: 45,
@@ -86,15 +98,10 @@ function App() {
 
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  // for testing
-  useEffect(() => {
-    console.log(state.categories)
-  },[state.categories])
-
   return (
     <div className="">
       <Header openModal={dispatch}/>
-      <Categories categories={JSON.parse(localStorage.getItem('categories'))}/>
+      <Categories dispatch={dispatch} categories={JSON.parse(localStorage.getItem('categories'))}/>
 
       {state.isModalOpen && <AddFlashcardModal categoryLength={state.categoryLength} descriptionLength={state.descriptionLength} isModalOpen={state.isModalOpen} showModal={dispatch}/>}
     </div>
