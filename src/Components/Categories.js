@@ -29,7 +29,8 @@ function Categories({dispatch, categories}) {
 
                             {/* This is the "Delete Button" for deleting the specific category */}
                             <Button  className="bg-red-300 font-bold py-2 px-3 hover:bg-red-400 shadow" text="Delete" handler={() => {
-                                dispatch({type: 'REMOVE_CATEGORY', payload: category.id})
+                                // dispatch({type: 'REMOVE_CATEGORY', payload: category.id})
+                                dispatch({type: 'SHOW_CONFIRMATION', payload: {isConfirmationModalOpen: true, categoryID: category.id, categoryName: category['category']}})
                             }}/>
                         </section>
                      </section>

@@ -61,18 +61,35 @@ export const reducer = (state, action) => {
       }
     }
 
+    if (action.type === 'SHOW_CONFIRMATION') {
+
+      return {
+        ...state,
+        delete: {
+          categoryName: action.payload.categoryName,
+          isConfirmationModalOpen: action.payload.isConfirmationModalOpen,
+          categoryID: action.payload.categoryID
+        }
+      }
+    }
     // HERE'S THE ACTION FOR REMOVING THE SPECIFIC CATEGORY BASED ON ID.
     if (action.type === 'REMOVE_CATEGORY') {
 
       const newCategories = JSON.parse(localStorage.getItem('categories')).filter(category => {
 
-        return category.id !== action.payload
+        return category.id !== state['delete'].categoryID
       })
       
       localStorage.setItem('categories', JSON.stringify(newCategories))
+
       return {
         ...state,
-        categories: newCategories
+        categories: newCategories,
+        delete: {
+          categoryName: '',
+          isConfirmationModalOpen: false,
+          categoryID: 0
+        }
       }
     }
 

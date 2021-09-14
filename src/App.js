@@ -5,6 +5,7 @@ import './index.css'
 import React, {useEffect, useReducer} from 'react'
 import {reducer} from './Javascripts/reducer'
 import MessageModal from './Components/MessageModal'
+import ConfirmationModal from './Components/ConfirmationModal'
 
 function App() {
 
@@ -23,6 +24,11 @@ function App() {
       isUpdateModalOpen: false,
       updateCategoryContent: '',
       updateDescriptionContent: '',
+      categoryID: 0
+    },
+    delete: {
+      categoryName: '',
+      isConfirmationModalOpen: false,
       categoryID: 0
     }
   }
@@ -51,6 +57,7 @@ function App() {
           isMessageError={state.message.isMessageError} 
           dispatch={dispatch}
         />}
+        {state['delete'].isConfirmationModalOpen && <ConfirmationModal categoryName={state['delete'].categoryName} dispatch={dispatch}/>}
     </div>
   );
 }

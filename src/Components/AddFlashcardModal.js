@@ -54,7 +54,7 @@ function AddFlashcardModal({categoryLength, descriptionLength, isModalOpen, disp
 
     return (
         <div className="">
-            <div ref={divRef} className="fixed opacity-1 -mt-10 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-200 px-3 py-2 border-2 border-blue-500 flex flex-col gap-4 sm:w-96 drop-shadow-lg shadow-lg">
+            <div ref={divRef} className="fixed opacity-0 -mt-10 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-200 px-3 py-2 border-2 border-blue-500 flex flex-col gap-4 sm:w-96 drop-shadow-lg shadow-lg">
 
                 {/* TEXTFIELD */}
                 <section className="flex flex-col">
