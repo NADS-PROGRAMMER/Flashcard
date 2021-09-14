@@ -1,4 +1,4 @@
-const reducer = (state, action) => {
+export const reducer = (state, action) => {
 
     // Opens the modal
     if (action.type === 'SHOW_MODAL') {
@@ -77,5 +77,16 @@ const reducer = (state, action) => {
         ...state,
         categories: newCategories
       }
+    }
+
+    // FOR SHOWING THE MESSAGE MODAL
+    if (action.type === 'SHOW_MESSAGE_MODAL' || action.type === 'HIDE_MESSAGE_MODAL') {
+
+        let newObj = {...state.message, isMessageModalOpen: action.payload.isMessageModalOpen, modalContent: action.payload.modalContent, isMessageError: action.payload.isMessageError}
+        return {
+
+            ...state,
+            message: newObj
+        }
     }
   }

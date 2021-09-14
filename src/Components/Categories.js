@@ -19,6 +19,15 @@ function Categories({dispatch, categories}) {
                         <section className="flex gap-3">
                             <Button className="bg-green-300 font-bold py-2 px-2 hover:bg-green-400 shadow w-30" text="Add Question"/>
 
+                            <Button className="bg-blue-300 font-bold py-2 px-2 hover:bg-blue-400 shadow w-30" text="Edit" 
+
+                                handler={() => {
+
+
+                                }}
+                            />
+
+                            {/* This is the "Delete Button" for deleting the specific category */}
                             <Button  className="bg-red-300 font-bold py-2 px-3 hover:bg-red-400 shadow" text="Delete" handler={() => {
                                 dispatch({type: 'REMOVE_CATEGORY', payload: category.id})
                             }}/>
