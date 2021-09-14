@@ -3,6 +3,7 @@ import Button from './Button'
 import '../../src/index.css'
 
 function Header({openModal}) {
+    
     return (
         <header className="flex items-center gap-2 px-2 py-2 mb-8 bg-blue-900">
             

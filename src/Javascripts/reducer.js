@@ -51,11 +51,8 @@ export const reducer = (state, action) => {
     if (action.type === 'ADD_CATEGORY') {
 
       const newCategories = [...state.categories, {...action.payload, id: new Date().getTime().toString()}]
-
+      
       localStorage.setItem('categories', JSON.stringify(newCategories))
-
-      console.log(typeof JSON.parse(localStorage.getItem('categories')))
-      console.log(JSON.parse(localStorage.getItem('categories'))[1])
 
       return {
         ...state,
@@ -88,5 +85,50 @@ export const reducer = (state, action) => {
             ...state,
             message: newObj
         }
+    }
+
+    // SHOW UPDATE MODAL
+    if (action.type === 'SHOW_UPDATE_MODAL') {
+
+        let newObj = {...state.update, isUpdateModalOpen: action.payload.isUpdateModalOpen, updateCategoryContent: action.payload.category, updateDescriptionContent: action.payload.description, categoryID: action.payload.categoryID}
+
+        return {
+            ...state,
+            isModalOpen: action.payload.isUpdateModalOpen,
+            update: newObj,
+        }
+    }
+
+    if (action.type === 'UPDATE_CATEGORY') {
+
+      let newCategories = JSON.parse(localStorage.getItem('categories')).map(category => {
+
+        if (state.update.categoryID === category['id']) {
+
+          return {
+
+            ...category,
+            category: action.payload.category,
+            description: action.payload.description
+          }
+        }
+        return category
+      })
+
+      localStorage.setItem('categories', JSON.stringify(newCategories))
+      console.log(localStorage.getItem('categories'))
+      return {
+        ...state,
+        categories: newCategories,
+        isModalOpen: false,
+        categoryLength: 25,
+        descriptionLength: 45,
+        update: {
+          isUpdateModalOpen: false,
+          updateCategoryContent: '',
+          updateDescriptionContent: '',
+          categoryID: 0
+        }
+      }
     }
   }

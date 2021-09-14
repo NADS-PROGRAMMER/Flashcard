@@ -7,7 +7,7 @@ import {reducer} from './Javascripts/reducer'
 import MessageModal from './Components/MessageModal'
 
 function App() {
-  
+
   const initialState = {
 
     categories: JSON.parse(localStorage.getItem('categories')) || [],
@@ -18,6 +18,12 @@ function App() {
       isMessageModalOpen: false,
       modalContent: '',
       isMessageError: false
+    },
+    update: {
+      isUpdateModalOpen: false,
+      updateCategoryContent: '',
+      updateDescriptionContent: '',
+      categoryID: 0
     }
   }
 
@@ -33,7 +39,10 @@ function App() {
           categoryLength={state.categoryLength} 
           descriptionLength={state.descriptionLength} 
           isModalOpen={state.isModalOpen} 
-          showModal={dispatch}
+          dispatch={dispatch}
+          isUpdateModalOpen={state.update.isUpdateModalOpen}
+          updateCategoryContent={state.update.updateCategoryContent}
+          updateDescriptionContent={state.update.updateDescriptionContent}
         />}
         {state.message.isMessageModalOpen && 
         

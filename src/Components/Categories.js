@@ -23,7 +23,7 @@ function Categories({dispatch, categories}) {
 
                                 handler={() => {
 
-
+                                    dispatch({type: 'SHOW_UPDATE_MODAL', payload: {isUpdateModalOpen: true, category: category['category'], description: category['description'], categoryID: category['id']}})
                                 }}
                             />
 
