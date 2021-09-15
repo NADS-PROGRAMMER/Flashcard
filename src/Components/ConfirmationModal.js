@@ -22,7 +22,7 @@ function ConfirmationModal({categoryName, dispatch}) {
                     dispatch({type: 'REMOVE_CATEGORY'})
                     dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Deleted Succesfully', isMessageError: false}})
                 }}
-                className="bg-red-300 font-bold py-2 px-2 hover:bg-red-400 shadow w-30" 
+                className="bg-red-300 font-bold py-2 px-2 hover:bg-red-400 shadow w-30 md:w-72" 
                 text="Yes"
                 />
 
@@ -30,7 +30,7 @@ function ConfirmationModal({categoryName, dispatch}) {
                 handler={() => {
                     dispatch({type: 'SHOW_CONFIRMATION', payload: {isConfirmationModalOpen: false, categoryID: 0, categoryName: ''}})
                 }}
-                className="bg-green-300 font-bold py-2 px-2 hover:bg-green-400 shadow w-30" 
+                className="bg-green-300 font-bold py-2 px-2 hover:bg-green-400 shadow w-30 md:w-72" 
                 text="No" 
                 />
             </section>

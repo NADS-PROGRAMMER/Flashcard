@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from './Button'
 
-function Categories({dispatch, categories}) {
+function Categories({dispatch, categories, disabled}) {
 
     return (
         <div className="flex flex-wrap gap-4 justify-center items-stretch px-4 py-2 md:px-8">
@@ -17,19 +17,36 @@ function Categories({dispatch, categories}) {
                         </section>
                         
                         <section className="flex gap-3">
-                            <Button className="bg-green-300 font-bold py-2 px-2 hover:bg-green-400 shadow w-30" text="Add Question"/>
 
-                            <Button className="bg-blue-300 font-bold py-2 px-2 hover:bg-blue-400 shadow w-30" text="Edit" 
+                            {/* ADD QUESTION BUTTON */}
+                            <Button 
+                                disabled={disabled}
+                                className="bg-green-300 font-bold py-2 px-2 hover:bg-green-400 shadow w-30" 
+                                text="Add Question"
+                                handler={() => {
+                                    dispatch({type: 'SHOW_QUESTION_MODAL', payload: category.id})
+                                }}
+                            />
 
+                            {/* EDIT BUTTON */}
+                            <Button 
+                                disabled={disabled}
+                                className="bg-blue-300 font-bold py-2 px-2 hover:bg-blue-400 shadow w-30" 
+                                text="Edit" 
                                 handler={() => {
 
                                     dispatch({type: 'SHOW_UPDATE_MODAL', payload: {isUpdateModalOpen: true, category: category['category'], description: category['description'], categoryID: category['id']}})
                                 }}
                             />
 
-                            {/* This is the "Delete Button" for deleting the specific category */}
-                            <Button  className="bg-red-300 font-bold py-2 px-3 hover:bg-red-400 shadow" text="Delete" handler={() => {
-                                // dispatch({type: 'REMOVE_CATEGORY', payload: category.id})
+                            {/* This is the "Delete Button" for deleting the specific category 
+                                DELETE BUTTON
+                            */}
+                            <Button  
+                                disabled={disabled}
+                                className="bg-red-300 font-bold py-2 px-3 hover:bg-red-400 shadow" 
+                                text="Delete" 
+                                handler={() => {
                                 dispatch({type: 'SHOW_CONFIRMATION', payload: {isConfirmationModalOpen: true, categoryID: category.id, categoryName: category['category']}})
                             }}/>
                         </section>

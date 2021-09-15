@@ -2,10 +2,20 @@ import React, {useState, useEffect, useRef} from 'react'
 import Button from './Button'
 import { gsap } from "gsap"
 
-function AddFlashcardModal({categoryLength, descriptionLength, isModalOpen, dispatch, isUpdateModalOpen, updateCategoryContent, updateDescriptionContent}) {
+function AddFlashcardModal({
+    categoryLength, 
+    descriptionLength, 
+    isModalOpen, 
+    dispatch, 
+    isUpdateModalOpen, 
+    updateCategoryContent, 
+    updateDescriptionContent,
+    isAddQuestionModalOpen}) {
 
    const [category, setCategory] = useState('')
    const [description, setDescription] = useState('')
+   const [question, setQuestion] = useState('')
+   const [answer, setAnswer] = useState('')
    const divRef = useRef()
    
     /** useEffect for setting up the value of
@@ -60,48 +70,54 @@ function AddFlashcardModal({categoryLength, descriptionLength, isModalOpen, disp
                 <section className="flex flex-col">
 
                     <section className="flex items-center justify-between">
-                        <label className="font-medium" htmlFor="question">Category Name: </label>
+                        <label className="font-medium" htmlFor="question">{isAddQuestionModalOpen ? "Question:" : "Category Name:" }</label>
 
-                        <small>{categoryLength}/25</small>
+                        {!isAddQuestionModalOpen && <small>{categoryLength}/25</small>}
                     </section>
 
-                    <input value={category}  onInput={(e) => {
+                    <input value={!isAddQuestionModalOpen ? category : question}  onInput={ !isAddQuestionModalOpen ? (e) => {
 
                         // Check if the number of characters is empty.
                         25 - e.target.value.length === -1 ? setCategory(prevValue => prevValue) : setCategory(e.target.value)
                         
-                    }} className="border border-black py-2 px-1" type="text" name="" id="" />
+                    } : (e) => {setQuestion(e.target.value)}} className="border border-black py-2 px-1" type="text" name="" id="" />
                 </section>
 
                 {/* TEXTAREA */}
                 <section className="flex flex-col">
 
                     <section className="flex items-center justify-between">
-                        <label className="font-medium" htmlFor="answer">Description: (Optional)</label>
+                        <label className="font-medium" htmlFor="answer">{isAddQuestionModalOpen ? "Answer: " : "Description (Optional): "}</label>
 
-                        <small>{descriptionLength}/45</small>
+                        {!isAddQuestionModalOpen && <small>{descriptionLength}/45</small>}
                     </section>
+                    {isAddQuestionModalOpen ?  
+                    <input value={answer} onInput={(e) => setAnswer(e.target.value)} className="border border-black py-2 px-1" type="text" name="" id="" />
+                    : 
                     <textarea value={description} onInput={(e) => {
 
                         // Check if the number of characters is empty.
                         45 - e.target.value.length === -1 ? setDescription(prevValue => prevValue) : setDescription(e.target.value)
 
-                    }} className="border border-black py-2 px-1" name="" id="" cols="30" rows="3"></textarea>
+                    }} className="border border-black py-2 px-1" name="" id="" cols="30" rows="3"></textarea>}
                 </section>
                 
                 {/* BUTTON SECTION */}
                 <section className="flex gap-2">
                 <Button 
-                handler={!isUpdateModalOpen ? () => {
+                handler={
+                isAddQuestionModalOpen ? () => {
+                    dispatch({type: 'ADD_QUESTION', payload: {question: question, answer: answer}})
+                } : !isUpdateModalOpen ? () => {
 
-                    // If update modal is not open
+                    // If update modal is not open this is the required event.
                     if (category) {
-                        dispatch({type: 'ADD_CATEGORY', payload: {category: category, description: description, questions: {}}})
+                        dispatch({type: 'ADD_CATEGORY', payload: {category: category, description: description, questions: []}})
                         dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Category Added', isMessageError: false}})
                     }
                     else 
                         dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Input field empty', isMessageError: true}})
-                } : () => {
+                } :  () => {
 
                     if (category) {
 

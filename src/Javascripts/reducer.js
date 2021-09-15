@@ -13,11 +13,28 @@ export const reducer = (state, action) => {
         descriptionLength: descriptionLength,
       }
     }
+
+    if (action.type === 'SHOW_QUESTION_MODAL') {
+
+      return {
+        ...state,
+        isModalOpen: true,
+        addQuestion: {
+          isAddQuestionModalOpen: true,
+          categoryID: action.payload
+        }
+      }
+    }
+
     // Closes the modal
     if (action.type === 'CLOSE_MODAL') {
       return {
         ...state,
         isModalOpen: false,
+        addQuestion: {
+          isAddQuestionModalOpen: false,
+          categoryID: 0
+        }
       }
     }
 
@@ -115,7 +132,8 @@ export const reducer = (state, action) => {
             update: newObj,
         }
     }
-
+    
+    // EVENTS FOR UPDATING THE SPECIFIC CATEGORY.
     if (action.type === 'UPDATE_CATEGORY') {
 
       let newCategories = JSON.parse(localStorage.getItem('categories')).map(category => {
@@ -133,7 +151,7 @@ export const reducer = (state, action) => {
       })
 
       localStorage.setItem('categories', JSON.stringify(newCategories))
-      console.log(localStorage.getItem('categories'))
+
       return {
         ...state,
         categories: newCategories,
@@ -146,6 +164,36 @@ export const reducer = (state, action) => {
           updateDescriptionContent: '',
           categoryID: 0
         }
+      }
+    }
+
+    /** NOTE:
+     * 
+     * BUGS ARE STILL OCCURING IN THIS BLOCK OF CODE.
+     */
+    if (action.type === 'ADD_QUESTION') {
+
+      let newCategories = JSON.parse(localStorage.getItem('categories')).map(category => {
+
+        if (category.id === state['addQuestion'].categoryID) {
+
+          let updatedQuestions = [...category['questions'], {question: action.payload.question, answer: action.payload.answer, id: new Date().getTime().toString()}]
+
+          return {
+
+            ...category,
+            questions: updatedQuestions
+          }
+        }
+        return category
+      })
+
+      localStorage.setItem('categories', JSON.stringify(newCategories))
+
+      return {
+
+        ...state,
+        categories: newCategories
       }
     }
   }
