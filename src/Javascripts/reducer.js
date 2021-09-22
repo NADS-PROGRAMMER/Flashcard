@@ -173,27 +173,30 @@ export const reducer = (state, action) => {
      */
     if (action.type === 'ADD_QUESTION') {
 
-      let newCategories = JSON.parse(localStorage.getItem('categories')).map(category => {
+      let question1 = action.payload.question
+      let answer1 = action.payload.answer
+      let newCategories = state.categories
+      
+      let category2 = newCategories.map(category => {
 
         if (category.id === state['addQuestion'].categoryID) {
-
-          let updatedQuestions = [...category['questions'], {question: action.payload.question, answer: action.payload.answer, id: new Date().getTime().toString()}]
-
+        
+          let newQuestion = [...category.questions, {question: question1, answer: answer1, id: new Date().getTime().toString()}]
           return {
 
             ...category,
-            questions: updatedQuestions
+            questions: newQuestion
           }
         }
-        return category
+
       })
 
-      localStorage.setItem('categories', JSON.stringify(newCategories))
+      localStorage.setItem('categories', JSON.stringify(category2))
 
       return {
 
         ...state,
-        categories: newCategories
+        categories: category2
       }
     }
   }

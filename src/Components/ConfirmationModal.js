@@ -6,6 +6,7 @@ function ConfirmationModal({categoryName, dispatch}) {
 
     const modalRef = useRef()
 
+    // This is the useEffect for animation only
     useEffect(() => {
 
        gsap.to(modalRef.current, {opacity: 1, marginTop: "0px", duration: .3})
@@ -18,6 +19,7 @@ function ConfirmationModal({categoryName, dispatch}) {
             </section>
             <section className="flex gap-2">
                 <Button 
+                // EVENT HANDLER OF BUTTON
                 handler={() => {
                     dispatch({type: 'REMOVE_CATEGORY'})
                     dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Deleted Succesfully', isMessageError: false}})
@@ -27,6 +29,7 @@ function ConfirmationModal({categoryName, dispatch}) {
                 />
 
                 <Button 
+                // EVENT HANDLER OF BUTTON
                 handler={() => {
                     dispatch({type: 'SHOW_CONFIRMATION', payload: {isConfirmationModalOpen: false, categoryID: 0, categoryName: ''}})
                 }}

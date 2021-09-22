@@ -18,7 +18,7 @@ function MessageModal({modalContent, isMessageError, dispatch}) {
     
     return (
         <>
-        <div ref={modalRef} className={isMessageError ? "bg-red-400 w-48 text-center fixed bottom-6 left-2 py-3 shadow-lg opacity-0 -mt-10" : "bg-green-400 w-48 text-center fixed bottom-6 left-2 py-3 shadow-lg"}>
+        <div ref={modalRef} className={isMessageError ? "bg-red-400 w-48 text-center fixed bottom-6 left-2 py-3 px-2 shadow-lg opacity-0 -mt-10" : "bg-green-400 w-48 text-center fixed bottom-6 left-2 py-3 shadow-lg"}>
             <h1 className="text-center font-semibold">{modalContent}</h1>
         </div>
         </>

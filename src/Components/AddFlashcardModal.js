@@ -107,7 +107,15 @@ function AddFlashcardModal({
                 <Button 
                 handler={
                 isAddQuestionModalOpen ? () => {
-                    dispatch({type: 'ADD_QUESTION', payload: {question: question, answer: answer}})
+
+                    if (question && answer) {
+                        dispatch({type: 'ADD_QUESTION', payload: {question: question, answer: answer}})
+                        setQuestion('')
+                        setAnswer('')
+                    }
+                    else {
+                        dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Question and Answer field must not be empty.', isMessageError: true}})
+                    }
                 } : !isUpdateModalOpen ? () => {
 
                     // If update modal is not open this is the required event.
