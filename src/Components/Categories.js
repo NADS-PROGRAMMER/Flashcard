@@ -10,7 +10,7 @@ function Categories({dispatch, categories, disabled}) {
 
                 return (
                     <section key={category.id} className="flex flex-col jusitfy-around  gap-3 bg-green-100 py-5 px-3 hover:scale-150 border-2 border-green-900 max-w-sm w-full
-                       shadow-2xl ">
+                       shadow-2xl hover:bg-green-200" onClick={() => dispatch({type: 'OPEN_FLASHCARD'})}>
                         <section>
                             <h1 className="text-2xl font-medium">{category['category']}</h1>
                             <p className="font-semibold break-all text-blue-900">{category['description']}</p>
