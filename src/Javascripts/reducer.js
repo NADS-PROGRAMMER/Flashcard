@@ -3,7 +3,7 @@ export const reducer = (state, action) => {
     // Opens the modal
     if (action.type === 'SHOW_MODAL') {
 
-      let categoryLength = 25
+      let categoryLength = 45
       let descriptionLength = 45
 
       return {
@@ -41,12 +41,12 @@ export const reducer = (state, action) => {
     // CHANGE THE CATEGORY LENGTH VALUE
     if (action.type === 'CHANGE_CATEGORY_VALUE') {
 
-      let originalLength = 25
+      let originalLength = 45
       let newCategoryLength = originalLength - action.payload.length
 
       return {
         ...state,
-        categoryLength:  newCategoryLength
+        categoryLength: newCategoryLength
       }
     }
 
@@ -65,6 +65,11 @@ export const reducer = (state, action) => {
       }
     }
 
+    /*********************************
+     * 
+     * AN ACTION FOR 'ADDING CATEGORY' 
+     * 
+     ********************************/
     if (action.type === 'ADD_CATEGORY') {
 
       const newCategories = [...state.categories, {...action.payload, id: new Date().getTime().toString()}]
@@ -76,20 +81,15 @@ export const reducer = (state, action) => {
         categories: newCategories,
         isModalOpen: false,
       }
-    }
+    } // END OF ADD_CATEGORY ACTION ==
 
-    if (action.type === 'SHOW_CONFIRMATION') {
-
-      return {
-        ...state,
-        delete: {
-          categoryName: action.payload.categoryName,
-          isConfirmationModalOpen: action.payload.isConfirmationModalOpen,
-          categoryID: action.payload.categoryID
-        }
-      }
-    }
-    // HERE'S THE ACTION FOR REMOVING THE SPECIFIC CATEGORY BASED ON ID.
+    /*********************************
+     * 
+     * AN ACTION FOR 'REMOVING CATEGORY' 
+     * 
+     * The category is removed based on its 'UNIQUE ID'
+     * 
+     ********************************/
     if (action.type === 'REMOVE_CATEGORY') {
 
       const newCategories = JSON.parse(localStorage.getItem('categories')).filter(category => {
@@ -108,8 +108,25 @@ export const reducer = (state, action) => {
           categoryID: 0
         }
       }
-    }
+    } // END OF REMOVE_CATEGORY ACTION ==
 
+    /*******************************
+     * 
+     * AN ACTION FOR SHOWING THE CONFIRMATION MODAL
+     * 
+     *******************************/
+    if (action.type === 'SHOW_CONFIRMATION') {
+
+      return {
+        ...state,
+        delete: {
+          categoryName: action.payload.categoryName,
+          isConfirmationModalOpen: action.payload.isConfirmationModalOpen,
+          categoryID: action.payload.categoryID
+        }
+      }
+    }
+    
     // FOR SHOWING THE MESSAGE MODAL
     if (action.type === 'SHOW_MESSAGE_MODAL' || action.type === 'HIDE_MESSAGE_MODAL') {
 
@@ -167,36 +184,56 @@ export const reducer = (state, action) => {
       }
     }
 
-    /** NOTE:
+    /************************************************************************************************ 
      * 
-     * BUGS ARE STILL OCCURING IN THIS BLOCK OF CODE.
-     */
+     * An 'action' for adding a question. This will get triggered if the 'ADD' button in the question 
+     * modal is clicked.
+     * 
+     * (Need to refactor)
+     ************************************************************************************************/
     if (action.type === 'ADD_QUESTION') {
 
-      let question1 = action.payload.question
-      let answer1 = action.payload.answer
-      let newCategories = state.categories
+      let newQuestion = action.payload.question
+      let newAnswer = action.payload.answer
+      let currentCategories = state.categories
       
-      let category2 = newCategories.map(category => {
+      let newCategory = currentCategories.map(category => {
 
         if (category.id === state['addQuestion'].categoryID) {
         
-          let newQuestion = [...category.questions, {question: question1, answer: answer1, id: new Date().getTime().toString()}]
+          let newSetOfQuestions = [...category.questions, {question: newQuestion, answer: newAnswer, id: new Date().getTime().toString()}]
           return {
 
             ...category,
-            questions: newQuestion
+            questions: newSetOfQuestions
           }
         }
-
+        return category
       })
 
-      localStorage.setItem('categories', JSON.stringify(category2))
+      localStorage.setItem('categories', JSON.stringify(newCategory))
 
       return {
-
         ...state,
-        categories: category2
+        categories: newCategory
+      }
+    }
+
+    if (action.type === 'OPEN_FLASHCARD' || action.type === 'CLOSE_FLASHCARD') {
+
+      let currentCategory = state.categories.filter(category => {
+
+        return category.id === action.payload.categoryID
+      })
+
+      console.log(currentCategory)
+      return {
+        ...state,
+        openFlashcard: {
+          isFlashcardOpen: action.payload.isFlashcardOpen,
+          categoryID: action.payload.categoryID,
+          questions: action.payload.isFlashcardOpen ? currentCategory[0].questions : []
+        }
       }
     }
   }
