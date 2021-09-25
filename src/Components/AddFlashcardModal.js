@@ -18,6 +18,11 @@ function AddFlashcardModal({
    const [answer, setAnswer] = useState('')
    const divRef = useRef()
    
+   /** Use effect for animations of the modal */
+    useEffect(() => {
+        gsap.to(divRef.current, {opacity: 1, marginTop: "0px", duration: .3})  
+    })
+
     /** useEffect for setting up the value of
      * category and description when the modal is closed. */
     useEffect(() => {
@@ -27,6 +32,7 @@ function AddFlashcardModal({
             setCategory('')
             setDescription('')
         }
+
     }, [isModalOpen])
 
     /** Checks if the the update modal is open 
@@ -39,17 +45,12 @@ function AddFlashcardModal({
             setCategory(updateCategoryContent)
             setDescription(updateDescriptionContent)
         }
-    }, [isUpdateModalOpen])
 
-    /** Use effect for animations of the modal */
-    useEffect(() => {
-        gsap.to(divRef.current, {opacity: 1, marginTop: "0px", duration: .3})  
-    })
+    }, [isUpdateModalOpen])
 
     /** ITO AY ANG USE EFFECT
      * PARA MALAMAN KUNG ANONG LENGTH NA 
-     * NG INPUT SA CATEGORY AND DESCRIPTION.
-     */
+     * NG INPUT SA CATEGORY AND DESCRIPTION. */
     useEffect(() => {
 
         dispatch({type: 'CHANGE_CATEGORY_VALUE', payload: category})
@@ -72,13 +73,14 @@ function AddFlashcardModal({
                     <section className="flex items-center justify-between">
                         <label className="font-medium" htmlFor="question">{isAddQuestionModalOpen ? "Question:" : "Category Name:" }</label>
 
-                        {!isAddQuestionModalOpen && <small>{categoryLength}/25</small>}
+                        {/* Only show when the modal is not for ADDING A QUESTION MODAL */}
+                        {!isAddQuestionModalOpen && <small>{categoryLength}/45</small>}
                     </section>
 
                     <input value={!isAddQuestionModalOpen ? category : question}  onInput={ !isAddQuestionModalOpen ? (e) => {
 
                         // Check if the number of characters is empty.
-                        25 - e.target.value.length === -1 ? setCategory(prevValue => prevValue) : setCategory(e.target.value)
+                        45 - e.target.value.length === -1 ? setCategory(prevValue => prevValue) : setCategory(e.target.value)
                         
                     } : (e) => {setQuestion(e.target.value)}} className="border border-black py-2 px-1" type="text" name="" id="" />
                 </section>
@@ -89,69 +91,90 @@ function AddFlashcardModal({
                     <section className="flex items-center justify-between">
                         <label className="font-medium" htmlFor="answer">{isAddQuestionModalOpen ? "Answer: " : "Description (Optional): "}</label>
 
+                        {/* Only show when the modal is not for ADDING A QUESTION MODAL */}
                         {!isAddQuestionModalOpen && <small>{descriptionLength}/45</small>}
                     </section>
+
                     {isAddQuestionModalOpen ?  
-                    <input value={answer} onInput={(e) => setAnswer(e.target.value)} className="border border-black py-2 px-1" type="text" name="" id="" />
-                    : 
-                    <textarea value={description} onInput={(e) => {
+                        <input value={answer} onInput={(e) => setAnswer(e.target.value)} className="border border-black py-2 px-1" type="text" name="" id="" />
+                        : 
+                        <textarea value={description} onInput={(e) => {
 
-                        // Check if the number of characters is empty.
-                        45 - e.target.value.length === -1 ? setDescription(prevValue => prevValue) : setDescription(e.target.value)
+                            // Check if the number of characters is empty.
+                            45 - e.target.value.length === -1 ? setDescription(prevValue => prevValue) : setDescription(e.target.value)
 
-                    }} className="border border-black py-2 px-1" name="" id="" cols="30" rows="3"></textarea>}
+                        }} className="border border-black py-2 px-1" name="" id="" cols="30" rows="3"></textarea>}
                 </section>
                 
                 {/* BUTTON SECTION */}
                 <section className="flex gap-2">
                 <Button 
-                handler={
-                isAddQuestionModalOpen ? () => {
+                    handler={
+                    
+                    /*****************************************************************
+                     * 
+                     * This is the event when the user wants to add a question.
+                     * We are using the same modal but we only change some of its
+                     * structure and event in this button.
+                     * 
+                     ****************************************************************/
+                    isAddQuestionModalOpen ? () => {
 
-                    if (question && answer) {
-                        dispatch({type: 'ADD_QUESTION', payload: {question: question, answer: answer}})
-                        setQuestion('')
-                        setAnswer('')
-                    }
-                    else {
-                        dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Question and Answer field must not be empty.', isMessageError: true}})
-                    }
-                } : !isUpdateModalOpen ? () => {
+                        if (question && answer) {
+                            dispatch({type: 'ADD_QUESTION', payload: {question: question, answer: answer}})
+                            dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Question added successfully!', isMessageError: false}})
+                            setQuestion('')
+                            setAnswer('')
+                        }
+                        else {
+                            dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Question and Answer field must not be empty.', isMessageError: true}})
+                        }
+                    } : 
+                    /*****************************************************************
+                     * IF THE UPDATE MODAL IS OPEN, THIS IS THE 'DEFAULT' EVENT.
+                     ****************************************************************/
+                    isUpdateModalOpen ? () => {
 
-                    // If update modal is not open this is the required event.
-                    if (category) {
-                        dispatch({type: 'ADD_CATEGORY', payload: {category: category, description: description, questions: []}})
-                        dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Category Added', isMessageError: false}})
-                    }
-                    else 
-                        dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Input field empty', isMessageError: true}})
-                } :  () => {
+                        if (category) {
 
-                    if (category) {
+                            dispatch({type: 'UPDATE_CATEGORY', payload: {category: category, description: description}})
+                            dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Successfully Updated', isMessageError: false}})
+                        }
+                        else {
+                            dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Input field empty', isMessageError: true}})
+                        }
+                        
+                    } :  
+                    /*****************************************************************
+                     * IF THE UPDATE MODAL IS NOT OPEN, THIS IS THE 'DEFAULT' EVENT.
+                     ****************************************************************/
+                    () => {
 
-                        dispatch({type: 'UPDATE_CATEGORY', payload: {category: category, description: description}})
-                        dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Successfully Updated', isMessageError: false}})
-                    }
-                    else {
-                        dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Input field empty', isMessageError: true}})
-                    }
-                }}
-                className={!isUpdateModalOpen ? "bg-green-300 font-bold py-2 px-3 hover:bg-green-400 shadow" : "bg-blue-300 font-bold py-2 px-3 hover:bg-blue-400 shadow"} 
-                text={!isUpdateModalOpen ? "Add" : "Update"}
+                        // If update modal is not open this is the required event.
+                        if (category) {
+                            dispatch({type: 'ADD_CATEGORY', payload: {category: category, description: description, questions: []}})
+                            dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Category Added', isMessageError: false}})
+                        }
+                        else 
+                            dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Input field empty', isMessageError: true}})
+                    }}
+                    className={isUpdateModalOpen ? "bg-blue-300 font-bold py-2 px-3 hover:bg-blue-400 shadow" : "bg-green-300 font-bold py-2 px-3 hover:bg-green-400 shadow"} 
+                    text={isUpdateModalOpen ? "Update" : "Add"}
                 /> 
                     
 
                     {/* CANCEL BUTTON */}
-                    <Button handler={() => {
+                    <Button 
+                        handler={() => {
                     
-                    dispatch({type: "CLOSE_MODAL"})
-                    dispatch({type: 'SHOW_UPDATE_MODAL', payload: {isUpdateModalOpen: false, category: '', description: ''}})
+                        dispatch({type: "CLOSE_MODAL"})
+                        dispatch({type: 'SHOW_UPDATE_MODAL', payload: {isUpdateModalOpen: false, category: '', description: ''}})
 
-                    }}
+                        }}
 
-                    className="bg-red-300 font-bold py-2 px-3 hover:bg-red-400 shadow"
+                        className="bg-red-300 font-bold py-2 px-3 hover:bg-red-400 shadow"
                     
-                    text="Cancel"/>
+                        text="Cancel"/>
                 </section>
             </div>
         </div>
