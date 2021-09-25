@@ -5,6 +5,7 @@ import React, {useEffect, useReducer} from 'react'
 import {reducer} from './Javascripts/reducer'
 import MessageModal from './Components/MessageModal'
 import ConfirmationModal from './Components/ConfirmationModal'
+import QuestionsModal from './Components/QuestionsModal'
 import './index.css'
 
 function App() {
@@ -34,6 +35,11 @@ function App() {
     addQuestion: {
       isAddQuestionModalOpen: false,
       categoryID: 0
+    },
+    openFlashcard: {
+      isFlashcardOpen: false,
+      categoryID: 0,
+      questions: []
     }
   }
 
@@ -42,10 +48,10 @@ function App() {
   return (
     <div className="">
 
-      <Header disabled={state['delete'].isConfirmationModalOpen} openModal={dispatch}/>
+      <Header disabled={state['delete'].isConfirmationModalOpen || state.openFlashcard.isFlashcardOpen} openModal={dispatch}/>
 
       <Categories 
-        disabled={state.isModalOpen || state.delete.isConfirmationModalOpen}
+        disabled={state.isModalOpen || state.delete.isConfirmationModalOpen || state.openFlashcard.isFlashcardOpen}
         dispatch={dispatch} 
         categories={JSON.parse(localStorage.getItem('categories'))}
       />
@@ -71,6 +77,7 @@ function App() {
         />}
         {state['delete'].isConfirmationModalOpen && <ConfirmationModal categoryName={state['delete'].categoryName} dispatch={dispatch}/>}
 
+        {state['openFlashcard'].isFlashcardOpen && <QuestionsModal dispatch={dispatch} questions={state.openFlashcard.questions}/>}
     </div>
   );
 }
