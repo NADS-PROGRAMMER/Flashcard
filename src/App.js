@@ -39,6 +39,7 @@ function App() {
     openFlashcard: {
       isFlashcardOpen: false,
       categoryID: 0,
+      questionID: 0,
       questions: []
     }
   }
@@ -75,9 +76,9 @@ function App() {
           isMessageError={state.message.isMessageError} 
           dispatch={dispatch}
         />}
-        {state['delete'].isConfirmationModalOpen && <ConfirmationModal categoryName={state['delete'].categoryName} dispatch={dispatch}/>}
+        {state['delete'].isConfirmationModalOpen && <ConfirmationModal categoryName={state['delete'].categoryName} isFlashcardOpen={state['openFlashcard'].isFlashcardOpen} dispatch={dispatch}/>}
 
-        {state['openFlashcard'].isFlashcardOpen && <QuestionsModal dispatch={dispatch} questions={state.openFlashcard.questions}/>}
+        {state['openFlashcard'].isFlashcardOpen && <QuestionsModal categories={state.categories} dispatch={dispatch} questions={state.openFlashcard.questions}/>}
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React, {useRef, useEffect} from 'react'
 import Button from './Button'
 import {gsap} from 'gsap'
 
-function ConfirmationModal({categoryName, dispatch}) {
+function ConfirmationModal({categoryName, isFlashcardOpen, dispatch}) {
 
     const modalRef = useRef()
 
@@ -13,14 +13,19 @@ function ConfirmationModal({categoryName, dispatch}) {
     })
 
     return (
-        <div ref={modalRef} className="bg-blue-200 opacity-0 -mt-10 w-60 sm:w-32 md:w-72 flex flex-col gap-3 fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 py-4 px-2 border border-blue-500 shadow-xl">
+        <div ref={modalRef} className="bg-blue-200 opacity-0 -mt-10 w-60 sm:w-32 md:w-72 flex flex-col gap-3 fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 py-4 px-2 border border-blue-500 shadow-xl z-10">
             <section>
-                <p className="font-semibold">Delete <span className="text-red-400">{categoryName}</span> category?</p>
+                {isFlashcardOpen ? <p className="font-semibold">Do you want to delete this question?</p> : <p className="font-semibold">Delete <span className="text-red-400">{categoryName}</span> category?</p>}
             </section>
             <section className="flex gap-2">
                 <Button 
                 // EVENT HANDLER OF BUTTON
-                handler={() => {
+                handler={isFlashcardOpen ? 
+                  () => {
+                      dispatch({type: 'DELETE_QUESTION'})
+                      dispatch({type: 'SHOW_CONFIRMATION', payload: {isConfirmationModalOpen: false, categoryID: 0, categoryName: ''}})
+                   } 
+                : () => {
                     dispatch({type: 'REMOVE_CATEGORY'})
                     dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Deleted Succesfully', isMessageError: false}})
                 }}

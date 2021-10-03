@@ -219,6 +219,52 @@ export const reducer = (state, action) => {
       }
     }
 
+    if (action.type === 'DELETE_QUESTION_CONFIRMATION') {
+
+      // The value of the current 'openFlashcard' property.
+      let currentOpenFlashcard = state.openFlashcard
+
+      return {
+        ...state,
+        delete: {
+          isConfirmationModalOpen: true
+        },
+        openFlashcard: {
+          ...currentOpenFlashcard,
+          questionID: action.payload
+        }
+      }
+    }
+
+    if (action.type === 'DELETE_QUESTION') {
+
+      let newQuestions = []
+      let currentOpenFlashcardValue = state.openFlashcard
+      let newCategory = state.categories.map(category => {
+
+        if (category.id === state.openFlashcard.categoryID) {
+
+          newQuestions = category.questions.filter(question => question.id !== state.openFlashcard.questionID)
+
+          category.questions = newQuestions
+
+          return category
+        }
+        return category
+      })
+
+      localStorage.setItem('categories', JSON.stringify(newCategory))
+
+      return {
+        ...state,
+        categories: newCategory,
+        openFlashcard: {
+          ...currentOpenFlashcardValue,
+          questions: newQuestions
+        }
+      }
+    }
+
     if (action.type === 'OPEN_FLASHCARD' || action.type === 'CLOSE_FLASHCARD') {
 
       let currentCategory = state.categories.filter(category => {
