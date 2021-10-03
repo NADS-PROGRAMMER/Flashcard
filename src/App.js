@@ -6,6 +6,7 @@ import {reducer} from './Javascripts/reducer'
 import MessageModal from './Components/MessageModal'
 import ConfirmationModal from './Components/ConfirmationModal'
 import QuestionsModal from './Components/QuestionsModal'
+import UpdateQuestionModal from './Components/UpdateQuestionModal'
 import './index.css'
 
 function App() {
@@ -79,6 +80,7 @@ function App() {
         {state['delete'].isConfirmationModalOpen && <ConfirmationModal categoryName={state['delete'].categoryName} isFlashcardOpen={state['openFlashcard'].isFlashcardOpen} dispatch={dispatch}/>}
 
         {state['openFlashcard'].isFlashcardOpen && <QuestionsModal categories={state.categories} dispatch={dispatch} questions={state.openFlashcard.questions}/>}
+        <UpdateQuestionModal />
     </div>
   );
 }
