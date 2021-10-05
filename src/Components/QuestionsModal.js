@@ -60,7 +60,7 @@ function QuestionsModal({dispatch, currentIndex, categories, questions}) {
             {currentQuestions.length > 0 && <div className="bg-gray-100 h-auto mb-2 px-3 flex flex-col justify-between" onClick={() => setShow(!isShow)}>
                 <div className="flex flex-col justify-center mt-3">
                     <p className="text-center font-mono text-lg font-bold mb-4 break-words">{content.question}</p>
-                    {isShow && <p className="text-center font-medium text-xl break-words">{content.answer}</p>}
+                    {isShow ? <p className="text-center cursor-pointer text-green-700 font-medium text-xl break-words">{content.answer}</p> : <p className="text-center text-green-700 font-medium text-xl break-words cursor-pointer">Show Answer</p>}
                 </div>
                 <div className="py-2 px-2 flex justify-evenly">
                     {/* UPDATE BUTTON */}
