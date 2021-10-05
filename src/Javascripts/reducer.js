@@ -282,4 +282,79 @@ export const reducer = (state, action) => {
         }
       }
     }
+
+    /** This action is for showing the UpdateQuestionModal */
+    if (action.type === 'SHOW_UPDATE_QUESTION_MODAL') {
+
+      return {
+        ...state,
+        updateModal: {
+          isUpdateQuestionModalOpen: action.payload
+        }
+      }
+    }
+
+    /** This action is for setting the current question
+     * to be updated on the textfields of UpdateQuestionModal
+     */
+    if (action.type === 'SETUP_UPDATE_QUESTION_MODAL') {
+
+      const currentUpdateModal = state.updateModal
+
+      return {
+        ...state,
+        updateModal: {
+          ...currentUpdateModal,
+          questionID: action.payload.questionID,
+          question: action.payload.question,
+          answer: action.payload.answer,
+          index: action.payload.index
+        }
+      }
+    }
+
+    /** An action for updating a question */
+    if (action.type === 'UPDATE_QUESTION') {
+
+      let newSetOfQuestions = []
+      let currentOpenFlashcard = state.openFlashcard
+      let currentUpdateModal = state.updateModal
+      let categoryID = state.openFlashcard.categoryID
+
+      let newCategories = state.categories.map(category => {
+
+        if (category.id === categoryID) {
+
+          newSetOfQuestions = category.questions.map(question => {
+
+            if (question.id === state.updateModal.questionID) {
+
+              return {id: question.id, question: action.payload.question, answer: action.payload.answer}
+            }
+            return question
+          })
+
+          category.questions = newSetOfQuestions
+          return category
+        }
+        return category
+      })
+
+      localStorage.setItem('categories', JSON.stringify(newCategories))
+
+      return {
+
+        ...state,
+        categories: newCategories,
+        openFlashcard: {
+          ...currentOpenFlashcard,
+          questions: newSetOfQuestions
+        },
+        updateModal: {
+          ...currentUpdateModal,
+          isUpdateQuestionModalOpen: false
+        }
+
+      }
+    }
   }

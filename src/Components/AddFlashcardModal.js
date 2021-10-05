@@ -82,7 +82,7 @@ function AddFlashcardModal({
                         // Check if the number of characters is empty.
                         45 - e.target.value.length === -1 ? setCategory(prevValue => prevValue) : setCategory(e.target.value)
                         
-                    } : (e) => {setQuestion(e.target.value)}} className="border border-black py-2 px-1" type="text" name="" id="" />
+                    } : (e) => {setQuestion(e.target.value)}} className="border border-black py-2 px-1" type="text" name="" id="" autoFocus/>
                 </section>
 
                 {/* TEXTAREA */}

@@ -42,6 +42,14 @@ function App() {
       categoryID: 0,
       questionID: 0,
       questions: []
+    },
+    updateModal: {
+      isUpdateQuestionModalOpen: false,
+      questionID: 0,
+      categoryID: 0,
+      question: '',
+      answer: '',
+      index: -1
     }
   }
 
@@ -50,10 +58,10 @@ function App() {
   return (
     <div className="">
 
-      <Header disabled={state['delete'].isConfirmationModalOpen || state.openFlashcard.isFlashcardOpen} openModal={dispatch}/>
+      <Header disabled={state['delete'].isConfirmationModalOpen || state.openFlashcard.isFlashcardOpen || state.updateModal.isUpdateQuestionModalOpen} openModal={dispatch}/>
 
       <Categories 
-        disabled={state.isModalOpen || state.delete.isConfirmationModalOpen || state.openFlashcard.isFlashcardOpen}
+        disabled={state.isModalOpen || state.delete.isConfirmationModalOpen || state.openFlashcard.isFlashcardOpen || state.updateModal.isUpdateQuestionModalOpen}
         dispatch={dispatch} 
         categories={JSON.parse(localStorage.getItem('categories'))}
       />
@@ -79,8 +87,9 @@ function App() {
         />}
         {state['delete'].isConfirmationModalOpen && <ConfirmationModal categoryName={state['delete'].categoryName} isFlashcardOpen={state['openFlashcard'].isFlashcardOpen} dispatch={dispatch}/>}
 
-        {state['openFlashcard'].isFlashcardOpen && <QuestionsModal categories={state.categories} dispatch={dispatch} questions={state.openFlashcard.questions}/>}
-        <UpdateQuestionModal />
+        {state['openFlashcard'].isFlashcardOpen && <QuestionsModal currentIndex={state.updateModal.index} categories={state.categories} dispatch={dispatch} questions={state.openFlashcard.questions}/>}
+
+        {state.updateModal.isUpdateQuestionModalOpen && <UpdateQuestionModal dispatch={dispatch} questionToBeUpdated={state.updateModal.question} answerToBeUpdated={state.updateModal.answer}/>}
     </div>
   );
 }
