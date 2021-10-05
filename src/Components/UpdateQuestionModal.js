@@ -16,7 +16,7 @@ function UpdateQuestionModal({dispatch, questionToBeUpdated, answerToBeUpdated})
 
     return (
         // opacity-0 -mt-10
-        <div ref={divRef} className="bg-blue-200 opacity-0 -mt-10 sm:w-32 md:w-72 flex flex-col gap-3 fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 py-4 px-2 border border-blue-500 shadow-xl z-10 w-full max-w-xs md:max-w-md">
+        <div ref={divRef} className="bg-blue-200 opacity-0 -mt-10 sm:w-32 md:w-72 flex flex-col gap-3 fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 py-4 px-2 border border-blue-500 shadow-xl z-10 w-3/4 md:max-w-md">
             <div className="flex flex-col items-stretch">
                 <label className="font-medium" htmlFor="updated-question">
                     Updated Question:
@@ -34,7 +34,12 @@ function UpdateQuestionModal({dispatch, questionToBeUpdated, answerToBeUpdated})
                 <Button 
                 handler={() => {
 
-                    dispatch({type: 'UPDATE_QUESTION', payload: {question: question, answer: answer}})
+                    if (question && answer) {
+                        dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Question updated successfully!', isMessageError: false}})
+                        dispatch({type: 'UPDATE_QUESTION', payload: {question: question, answer: answer}})
+                    }
+                    else 
+                        dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Question and answer must not be empty.', isMessageError: true}})
                 }}
                 className="bg-blue-300 font-bold py-2 px-2 hover:bg-blue-400 shadow w-30 mx-1"  
                 text="Update" />
