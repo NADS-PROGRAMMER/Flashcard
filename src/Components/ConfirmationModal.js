@@ -24,6 +24,7 @@ function ConfirmationModal({categoryName, isFlashcardOpen, dispatch}) {
                   () => {
                       dispatch({type: 'DELETE_QUESTION'})
                       dispatch({type: 'SHOW_CONFIRMATION', payload: {isConfirmationModalOpen: false, categoryID: 0, categoryName: ''}})
+                      dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Question Deleted Succesfully!', isMessageError: false}})
                    } 
                 : () => {
                     dispatch({type: 'REMOVE_CATEGORY'})
