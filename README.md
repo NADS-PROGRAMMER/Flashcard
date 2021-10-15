@@ -25,6 +25,15 @@ application is a little bit complex because of connection of different component
 hook helps to manage and maintain different data that constantly changes based on the component rendered in
 the screen.
 
+# How to use this project
+
+1.) Click the 'New' button and provide the information needed to the modal that pops out.
+2.) You can see that there are three buttons
+- Add Question
+- Edit
+- Delete
+3.) If you add a question, if you want to see the questions that you created, you can click the created category to make the 'Question Modal' pops out.
+
 # Link of Project
 
 [Flashcard Project](https://flashcards-go.netlify.app/)
