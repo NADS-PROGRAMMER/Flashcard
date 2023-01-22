@@ -65,16 +65,16 @@ function AddFlashcardModal({
 
     return (
         <div className="">
-            <div ref={divRef} className="fixed opacity-0 -mt-10 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-blue-200 px-3 py-2 border-2 border-blue-500 flex flex-col gap-4 sm:w-96 drop-shadow-lg shadow-lg">
+            <div ref={divRef} className="fixed opacity-0 -mt-10 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 px-3 py-2 rounded-lg flex flex-col gap-4 sm:w-96 shadow-2xl">
 
                 {/* TEXTFIELD */}
                 <section className="flex flex-col">
 
                     <section className="flex items-center justify-between">
-                        <label className="font-medium" htmlFor="question">{isAddQuestionModalOpen ? "Question:" : "Category Name:" }</label>
+                        <label className="text-white py-1 font-bold" htmlFor="question">{isAddQuestionModalOpen ? "Question:" : "Category Name:" }</label>
 
                         {/* Only show when the modal is not for ADDING A QUESTION MODAL */}
-                        {!isAddQuestionModalOpen && <small>{categoryLength}/45</small>}
+                        {!isAddQuestionModalOpen && <small className="text-white font-mono font-medium">{categoryLength}/45</small>}
                     </section>
 
                     <input value={!isAddQuestionModalOpen ? category : question}  onInput={ !isAddQuestionModalOpen ? (e) => {
@@ -89,10 +89,10 @@ function AddFlashcardModal({
                 <section className="flex flex-col">
 
                     <section className="flex items-center justify-between">
-                        <label className="font-medium" htmlFor="answer">{isAddQuestionModalOpen ? "Answer: " : "Description (Optional): "}</label>
+                        <label className="text-white py-1 font-bold" htmlFor="answer">{isAddQuestionModalOpen ? "Answer: " : "Description (Optional): "}</label>
 
                         {/* Only show when the modal is not for ADDING A QUESTION MODAL */}
-                        {!isAddQuestionModalOpen && <small>{descriptionLength}/45</small>}
+                        {!isAddQuestionModalOpen && <small className="text-white font-mono font-medium">{descriptionLength}/45</small>}
                     </section>
 
                     {isAddQuestionModalOpen ?  
@@ -107,7 +107,7 @@ function AddFlashcardModal({
                 </section>
                 
                 {/* BUTTON SECTION */}
-                <section className="flex gap-2">
+                <section className="flex gap-2 pb-2 pl-1">
                 <Button 
                     handler={
                     
@@ -158,7 +158,7 @@ function AddFlashcardModal({
                         else 
                             dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Input field empty', isMessageError: true}})
                     }}
-                    className={isUpdateModalOpen ? "bg-blue-300 font-bold py-2 px-3 hover:bg-blue-400 shadow" : "bg-green-300 font-bold py-2 px-3 hover:bg-green-400 shadow"} 
+                    className="bg-gray-900 border text-white border-white font-bold py-2 px-3 transition-transform transform hover:scale-110 hover:bg-gray-800 shadow rounded-md"
                     text={isUpdateModalOpen ? "Update" : "Add"}
                 /> 
                     
@@ -172,7 +172,7 @@ function AddFlashcardModal({
 
                         }}
 
-                        className="bg-red-300 font-bold py-2 px-3 hover:bg-red-400 shadow"
+                        className="bg-red-900 border border-white rounded-md p-3 font-bold text-white transition-all transform hover:scale-110 hover:bg-red-800 shadow"
                     
                         text="Cancel"/>
                 </section>

@@ -56,7 +56,7 @@ function App() {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   return (
-    <div className="">
+    <div className="bg-gradient-to-b from-blue-900 to-gray-900   min-h-screen">
 
       <Header disabled={state['delete'].isConfirmationModalOpen || state.openFlashcard.isFlashcardOpen || state.updateModal.isUpdateQuestionModalOpen} openModal={dispatch}/>
 

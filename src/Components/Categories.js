@@ -4,25 +4,28 @@ import Button from './Button'
 function Categories({dispatch, categories, disabled}) {
 
     return (
-        <div className="flex flex-wrap gap-4 justify-center items-stretch px-4 py-2 md:px-8">
+        <div className=" px-4 py-2 md:px-8 flex gap-2 flex-wrap">
 
             {categories && categories.map((category) => {
 
                 return (
-                    <section key={category.id} className="flex flex-col jusitfy-around  gap-3 bg-green-100 py-5 px-3 hover:scale-150 border-2 border-green-900 max-w-sm w-full
-                       shadow-2xl hover:bg-green-200 cursor-pointer" onClick={() => dispatch({type: 'OPEN_FLASHCARD', payload: {isFlashcardOpen: true, categoryID: category.id}})}>
+                    <section 
+                        key={category.id} 
+                        className="flex flex-col jusitfy-around  gap-3 bg-gray-900 py-5 px-3 hover:scale-150 border-2 border-gray-800 max-w-sm w-full
+                       shadow-2xl hover:bg-gray-800 cursor-pointer rounded-md transition-colors" 
+                       onClick={() => dispatch({type: 'OPEN_FLASHCARD', payload: {isFlashcardOpen: true, categoryID: category.id}})}>
       
                         <section>
-                            <h1 className="text-2xl break-all font-medium">{category['category']}</h1>
-                            <p className="font-semibold break-all text-blue-900">{category['description']}</p>
+                            <h1 className="text-2xl break-all text-white font-bold">{category['category']}</h1>
+                            <p className="font-normal break-all text-white">{category['description']}</p>
                         </section>
                         
-                        <section className="flex gap-3">
+                        <section className="flex gap-2">
 
                             {/* ADD QUESTION BUTTON */}
                             <Button 
                                 disabled={disabled}
-                                className="bg-green-300 font-bold py-2 px-2 hover:bg-green-400 shadow w-30" 
+                                className="px-3 border border-white text-white font-semibold hover:bg-gray-700 rounded-lg max-h-80 transition-transform transform hover:scale-110" 
                                 text="Add Question"
                                 handler={(e) => {
                                     e.stopPropagation(); // to also avoid running the event of the whole category.
@@ -33,7 +36,7 @@ function Categories({dispatch, categories, disabled}) {
                             {/* EDIT BUTTON */}
                             <Button 
                                 disabled={disabled}
-                                className="bg-blue-300 font-bold py-2 px-2 hover:bg-blue-400 shadow w-30" 
+                                className="bg-blue-900 text-white font-bold py-2 hover:bg-blue-800 shadow w-30 px-3 rounded-lg border border-white transition-transform transform hover:scale-110" 
                                 text="Edit" 
                                 handler={(e) => {
 
@@ -47,7 +50,7 @@ function Categories({dispatch, categories, disabled}) {
                             */}
                             <Button  
                                 disabled={disabled}
-                                className="bg-red-300 font-bold py-2 px-3 hover:bg-red-400 shadow" 
+                                className="bg-red-900 font-bold px-3 hover:bg-red-800 shadow border border-white rounded-lg text-white transition-transform transform hover:scale-110" 
                                 text="Delete" 
                                 handler={(e) => {
 
