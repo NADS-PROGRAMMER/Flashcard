@@ -9,7 +9,7 @@ function ConfirmationModal({categoryName, isFlashcardOpen, dispatch}) {
     // This is the useEffect for animation only
     useEffect(() => {
 
-       gsap.to(modalRef.current, {opacity: 1, marginTop: "0px", duration: .3})
+       gsap.to(modalRef.current, {opacity: 1, marginTop: "0px", duration: .2})
     })
 
     return (

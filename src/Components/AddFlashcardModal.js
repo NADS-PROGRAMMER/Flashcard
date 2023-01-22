@@ -20,7 +20,7 @@ function AddFlashcardModal({
    
    /** Use effect for animations of the modal */
     useEffect(() => {
-        gsap.to(divRef.current, {opacity: 1, marginTop: "0px", duration: .3})  
+        gsap.to(divRef.current, {opacity: 1, marginTop: "0px", duration: .2})  
     })
 
     /** useEffect for setting up the value of

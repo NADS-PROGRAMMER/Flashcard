@@ -9,8 +9,8 @@ function QuestionsModal({dispatch, currentIndex, categories, questions}) {
 
     useEffect(() => {
 
-        gsap.to(divRef.current, {opacity: 1, marginTop: '0px'})
-    })
+        gsap.to(divRef.current, {opacity: 1, marginTop: '0px', duration: .2})
+    }, [])
 
     const [currentQuestions, setCurrentQuestions] = useState(questions)
     const [isShow, setShow] = useState(false)
