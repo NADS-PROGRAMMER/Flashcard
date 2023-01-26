@@ -5,7 +5,7 @@ import '../../src/index.css'
 function Header({openModal, disabled}) {
     
     return (
-        <header className="flex items-center gap-3 px-10 py-2 mb-8 bg-gray-900">
+        <header className="flex items-center gap-3 px-10 py-2 mb-8 bg-gray-900 w-screen">
             
             <h1 className="text-3xl font-bold md:text-4xl text-blue-50">Flashcards</h1>
 

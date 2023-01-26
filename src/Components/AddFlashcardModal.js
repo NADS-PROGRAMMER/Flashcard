@@ -21,13 +21,12 @@ function AddFlashcardModal({
    /** Use effect for animations of the modal */
     useEffect(() => {
         gsap.to(divRef.current, {opacity: 1, marginTop: "0px", duration: .2})  
-    })
+    }, [])
 
     /** useEffect for setting up the value of
      * category and description when the modal is closed. */
     useEffect(() => {
         
-        console.log(category, description)
         if (!isModalOpen) {
             setCategory('')
             setDescription('')

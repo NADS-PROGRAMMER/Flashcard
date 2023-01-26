@@ -4,20 +4,24 @@ import Button from './Button'
 function Categories({dispatch, categories, disabled}) {
 
     return (
-        <div className=" px-4 py-2 md:px-8 flex gap-2 flex-wrap">
+        <div className=" px-4 py-2 md:px-8 flex gap-2 flex-wrap justify-center lg:justify-start">
 
             {categories && categories.map((category) => {
-
+                
                 return (
                     <section 
                         key={category.id} 
-                        className="flex flex-col jusitfy-around  gap-3 bg-gray-900 py-5 px-3 hover:scale-150 border-2 border-gray-800 max-w-sm w-full
+                        className="flex flex-col jusitfy-around  gap-3 bg-gray-900 py-4 px-3 hover:scale-150 border-2 border-gray-800 max-w-sm w-full
                        shadow-2xl hover:bg-gray-800 cursor-pointer rounded-md transition-colors" 
                        onClick={() => dispatch({type: 'OPEN_FLASHCARD', payload: {isFlashcardOpen: true, categoryID: category.id}})}>
       
-                        <section>
-                            <h1 className="text-2xl break-all text-white font-bold">{category['category']}</h1>
+                        <section className='relative'>
+                            <h1 className="text-2xl break-all text-white font-bold pt-4">{category['category']}</h1>
                             <p className="font-normal break-all text-white">{category['description']}</p>
+
+                            <span className="text-white font-bold text-lg absolute right-0 -top-2">
+                                {category['questions'].length === 0 ? "No Questions" : category['questions'].length + " Questions"}
+                            </span>
                         </section>
                         
                         <section className="flex gap-2">

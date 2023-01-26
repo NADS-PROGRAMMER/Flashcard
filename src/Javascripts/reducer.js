@@ -1,6 +1,9 @@
 export const reducer = (state, action) => {
 
-    // Opens the modal
+    /** SHOW_MODAL action
+     * 
+     * It sets the 'modalOpen' state to true.
+     */
     if (action.type === 'SHOW_MODAL') {
 
       let categoryLength = 45
@@ -13,6 +16,7 @@ export const reducer = (state, action) => {
         descriptionLength: descriptionLength,
       }
     }
+    /** =========================== END OF SHOW_MODAL ACTION ========================= */
 
     if (action.type === 'SHOW_QUESTION_MODAL') {
 
@@ -26,7 +30,7 @@ export const reducer = (state, action) => {
       }
     }
 
-    // Closes the modal
+    /** ===================== CLOSE_MODAL ===================== */
     if (action.type === 'CLOSE_MODAL') {
       return {
         ...state,
@@ -37,8 +41,9 @@ export const reducer = (state, action) => {
         }
       }
     }
+    /** ================================= END OF CLOSE_MODAL ================================= */
 
-    // CHANGE THE CATEGORY LENGTH VALUE
+    /**  CHANGE THE CATEGORY LENGTH VALUE */
     if (action.type === 'CHANGE_CATEGORY_VALUE') {
 
       let originalLength = 45
@@ -49,8 +54,9 @@ export const reducer = (state, action) => {
         categoryLength: newCategoryLength
       }
     }
+    /** ==============================END OF CHANGE_CATEGORY_VALUE=================================== */
 
-    // CHANGE THE CATEGORY LENGTH VALUE
+    /** CHANGE THE DESCRIPTION LENGTH VALUE */
     if (action.type === 'CHANGE_DESCRIPTION_VALUE') {
  
       let originalLength = 45

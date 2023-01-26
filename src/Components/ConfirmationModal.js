@@ -14,9 +14,11 @@ function ConfirmationModal({categoryName, isFlashcardOpen, dispatch}) {
 
     return (
         <div ref={modalRef} className="bg-gray-900 opacity-0 -mt-10 w-60 sm:w-32 md:w-72 flex flex-col gap-3 fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 py-4 px-2  shadow-xl z-10 rounded-lg">
+
             <section className='py-5 px-2'>
-                {isFlashcardOpen ? <p className="font-semibold">Do you want to delete this question?</p> : <p className="font-semibold text-white text-lg">Delete <span className="text-red-200">{categoryName}</span> category?</p>}
+                {isFlashcardOpen ? <p className="font-semibold text-white text-lg">Do you want to delete this question?</p> : <p className="font-semibold text-white text-lg">Delete <span className="text-red-200">{categoryName}</span> category?</p>}
             </section>
+            
             <section className="flex gap-2">
                 <Button 
                 // EVENT HANDLER OF BUTTON

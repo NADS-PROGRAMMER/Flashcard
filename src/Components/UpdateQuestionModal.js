@@ -8,7 +8,7 @@ function UpdateQuestionModal({dispatch, questionToBeUpdated, answerToBeUpdated})
 
     useEffect(() => {
 
-        gsap.to(divRef.current, {opacity: 1, marginTop: '0px'})
+        gsap.to(divRef.current, {opacity: 1, marginTop: '0px', duration: .2})
     })
 
     const [question, setQuestion] = useState(questionToBeUpdated)
@@ -16,20 +16,20 @@ function UpdateQuestionModal({dispatch, questionToBeUpdated, answerToBeUpdated})
 
     return (
         // opacity-0 -mt-10
-        <div ref={divRef} className="bg-blue-200 opacity-0 -mt-10 sm:w-32 md:w-72 flex flex-col gap-3 fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 py-4 px-2 border border-blue-500 shadow-xl z-10 w-3/4 md:max-w-md">
+        <div ref={divRef} className="bg-gray-900 opacity-0 -mt-10 sm:w-32 md:w-72 flex flex-col gap-3 fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 py-4 px-3 shadow-xl z-10 w-3/4 md:max-w-md rounded-md">
             <div className="flex flex-col items-stretch">
-                <label className="font-medium" htmlFor="updated-question">
+                <label className="font-semibold text-white py-2" htmlFor="updated-question">
                     Updated Question:
                 </label>
                 <input value={question} onChange={(e) => setQuestion(e.target.value)} className="border border-black py-2 px-1" type="text" name="updated-question" id="updated-question"/>
             </div>
             <div className="flex flex-col items-stretch">
-                <label className="font-medium" htmlFor="updated-answer">
+                <label className="font-semibold text-white py-2" htmlFor="updated-answer">
                     Updated Answer:
                 </label>
                 <input value={answer} onChange={(e) => setAnswer(e.target.value)} className="border border-black py-2 px-1" type="text" name="updated-answer" id="updated-answer" />
             </div>
-            <div className="flex justify-end">
+            <div className="flex justify-end gap-1">
 
                 <Button 
                 handler={() => {
@@ -41,14 +41,14 @@ function UpdateQuestionModal({dispatch, questionToBeUpdated, answerToBeUpdated})
                     else 
                         dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Question and answer must not be empty.', isMessageError: true}})
                 }}
-                className="bg-blue-300 font-bold py-2 px-2 hover:bg-blue-400 shadow w-30 mx-1"  
+                className="bg-gray-900 font-bold py-2 px-2 hover:bg-gray-800 shadow w-30 mx-1 text-white border rounded-md transition-all transform hover:scale-110"  
                 text="Update" />
 
                 <Button 
                 handler={() => {
                     dispatch({type: 'SHOW_UPDATE_QUESTION_MODAL', payload: false})
                 }}
-                className="bg-red-300 font-bold py-2 px-3 hover:bg-red-400 shadow" 
+                className="bg-red-900 font-bold py-2 px-3 hover:bg-red-800 shadow text-white rounded-md transition-all transform hover:scale-110" 
                 text="Cancel" />
             </div>
         </div>
