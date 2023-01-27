@@ -2,6 +2,11 @@ import React from 'react'
 import Button from './Button'
 import '../../src/index.css'
 
+/** A Header consist of Navbar
+ * 
+ * openModal -> is a dispatch function that opens the modal.
+ * disabled -> is a props that setups if the button should be disabled or not.
+ */
 function Header({openModal, disabled}) {
     
     return (
