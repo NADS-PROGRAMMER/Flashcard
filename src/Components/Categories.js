@@ -12,15 +12,34 @@ function Categories({dispatch, categories, disabled}) {
                     <section 
                         key={category.id} 
                         className="flex flex-col jusitfy-around  gap-3 bg-gray-900 py-4 px-3 hover:scale-150 border-2 border-gray-800 max-w-sm w-full
-                       shadow-2xl hover:bg-gray-800 cursor-pointer rounded-md transition-colors" 
-                       onClick={() => dispatch({type: 'OPEN_FLASHCARD', payload: {isFlashcardOpen: true, categoryID: category.id}})}>
+                        shadow-2xl hover:bg-gray-800 cursor-pointer rounded-md transition-colors" 
+                        onClick={
+                            () => dispatch(
+                                {
+                                    type: 'OPEN_FLASHCARD', 
+                                    payload: {
+                                        isFlashcardOpen: true, 
+                                        categoryID: category.id
+                                    }
+                                })
+                        }>
       
                         <section className='relative'>
+
+                            {/* Category Title */}
                             <h1 className="text-2xl break-all text-white font-bold pt-4">{category['category']}</h1>
+
+                            {/* Category Description */}
                             <p className="font-normal break-all text-white">{category['description']}</p>
 
+                            {/* Number of Questions of current Category */}
                             <span className="text-white font-bold text-lg absolute right-0 -top-2">
-                                {category['questions'].length === 0 ? "No Questions" : category['questions'].length === 1 ? "1 Question" : category['questions'].length + " Questions"}
+
+                                {
+                                    category['questions'].length === 0 ? "No Questions" : 
+                                    category['questions'].length === 1 ? "1 Question" : 
+                                    category['questions'].length + " Questions"
+                                }
                             </span>
                         </section>
                         

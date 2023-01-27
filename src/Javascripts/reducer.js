@@ -273,12 +273,14 @@ export const reducer = (state, action) => {
 
     if (action.type === 'OPEN_FLASHCARD' || action.type === 'CLOSE_FLASHCARD') {
 
+      /**When this action dispatches, it will find the category that matches
+       * the categoryID from the payload. */
       let currentCategory = state.categories.filter(category => {
 
         return category.id === action.payload.categoryID
       })
 
-      console.log(currentCategory)
+      /** SET the openFlashcard object in the state. */
       return {
         ...state,
         openFlashcard: {
