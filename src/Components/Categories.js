@@ -20,7 +20,7 @@ function Categories({dispatch, categories, disabled}) {
                             <p className="font-normal break-all text-white">{category['description']}</p>
 
                             <span className="text-white font-bold text-lg absolute right-0 -top-2">
-                                {category['questions'].length === 0 ? "No Questions" : category['questions'].length + " Questions"}
+                                {category['questions'].length === 0 ? "No Questions" : category['questions'].length === 1 ? "1 Question" : category['questions'].length + " Questions"}
                             </span>
                         </section>
                         
