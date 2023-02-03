@@ -20,7 +20,17 @@ function AddFlashcardModal({
    
    /** Use effect for animations of the modal */
     useEffect(() => {
-        gsap.to(divRef.current, {opacity: 1, marginTop: "0px", duration: .2})  
+
+        if (window.innerWidth >= 768)
+            gsap.to(divRef.current, {opacity: 1, translateY: "0", duration: .2});
+        else 
+            gsap.to(divRef.current, {opacity: 1, translateY: "0", duration: .2, ease: "ease"});  
+
+        document.body.style.overflow = 'hidden';
+
+        return () => {
+            document.body.style.overflow = 'auto';
+        }
     }, [])
 
     /** useEffect for setting up the value of
@@ -61,10 +71,11 @@ function AddFlashcardModal({
     }, [description])
 
     // END OF USE EFFECTS
+    //fixed opacity-0 -mt-10 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 px-3 py-2 rounded-lg flex flex-col gap-4 sm:w-96 shadow-2xl border border-white
 
     return (
-        <div className="">
-            <div ref={divRef} className="fixed opacity-0 -mt-10 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 px-3 py-2 rounded-lg flex flex-col gap-4 sm:w-96 shadow-2xl">
+        <div className="fixed min-h-screen min-w-full top-0 flex items-end justify-center md:items-center">
+            <div ref={divRef} className="transform translate-y-24 md:-translate-y-24 bg-gray-900 px-3 py-2 rounded-lg flex flex-col gap-4 md:w-96 w-full shadow-2xl border border-white">
 
                 {/* TEXTFIELD */}
                 <section className="flex flex-col">
@@ -76,7 +87,7 @@ function AddFlashcardModal({
                         {!isAddQuestionModalOpen && <small className="text-white font-mono font-medium">{categoryLength}/45</small>}
                     </section>
 
-                    <input value={!isAddQuestionModalOpen ? category : question}  onInput={ !isAddQuestionModalOpen ? (e) => {
+                    <input placeholder={!isAddQuestionModalOpen ? 'Enter category name' : 'Enter a question'} value={!isAddQuestionModalOpen ? category : question}  onInput={ !isAddQuestionModalOpen ? (e) => {
 
                         // Check if the number of characters is empty.
                         45 - e.target.value.length === -1 ? setCategory(prevValue => prevValue) : setCategory(e.target.value)
@@ -95,9 +106,9 @@ function AddFlashcardModal({
                     </section>
 
                     {isAddQuestionModalOpen ?  
-                        <input value={answer} onInput={(e) => setAnswer(e.target.value)} className="border border-black py-2 px-1" type="text" name="" id="" />
+                        <input placeholder='Enter an answer' value={answer} onInput={(e) => setAnswer(e.target.value)} className="border border-black py-2 px-1" type="text" name="" id="" />
                         : 
-                        <textarea value={description} onInput={(e) => {
+                        <textarea placeholder='Enter category description' value={description} onInput={(e) => {
 
                             // Check if the number of characters is empty.
                             45 - e.target.value.length === -1 ? setDescription(prevValue => prevValue) : setDescription(e.target.value)

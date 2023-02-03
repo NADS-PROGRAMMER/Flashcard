@@ -8,15 +8,21 @@ function UpdateQuestionModal({dispatch, questionToBeUpdated, answerToBeUpdated})
 
     useEffect(() => {
 
-        gsap.to(divRef.current, {opacity: 1, marginTop: '0px', duration: .2})
-    })
+        gsap.to(divRef.current, {opacity: 1, translateY: '0px', duration: .2})
+
+        document.body.style.overflow = 'hidden';
+
+        return () => {
+            document.body.style.overflow = 'auto';
+        }
+    }, [])
 
     const [question, setQuestion] = useState(questionToBeUpdated)
     const [answer, setAnswer] = useState(answerToBeUpdated)
 
     return (
-        // opacity-0 -mt-10
-        <div ref={divRef} className="bg-gray-900 opacity-0 -mt-10 sm:w-32 md:w-72 flex flex-col gap-3 fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 py-4 px-3 shadow-xl z-10 w-3/4 md:max-w-md rounded-md">
+        <div className="fixed min-h-screen min-w-full top-0 flex items-end justify-center md:items-center z-10">
+        <div ref={divRef} className="transform translate-y-24 md:-translate-y-24 bg-gray-900 px-3 py-2 rounded-lg flex flex-col gap-4 md:w-96 w-full shadow-2xl border border-white">
             <div className="flex flex-col items-stretch">
                 <label className="font-semibold text-white py-2" htmlFor="updated-question">
                     Updated Question:
@@ -51,6 +57,7 @@ function UpdateQuestionModal({dispatch, questionToBeUpdated, answerToBeUpdated})
                 className="bg-red-900 font-bold py-2 px-3 hover:bg-red-800 shadow text-white rounded-md transition-all transform hover:scale-110" 
                 text="Cancel" />
             </div>
+        </div>
         </div>
     )
 }

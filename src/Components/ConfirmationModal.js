@@ -9,17 +9,23 @@ function ConfirmationModal({categoryName, isFlashcardOpen, dispatch}) {
     // This is the useEffect for animation only
     useEffect(() => {
 
-       gsap.to(modalRef.current, {opacity: 1, marginTop: "0px", duration: .2})
-    })
+       gsap.to(modalRef.current, {opacity: 1, translateY: "0px", duration: .2})
+       document.body.style.overflow = 'hidden';
+
+       return () => {
+        document.body.style.overflow = 'auto';
+       }
+    }, [])
 
     return (
-        <div ref={modalRef} className="bg-gray-900 opacity-0 -mt-10 w-60 sm:w-32 md:w-72 flex flex-col gap-3 fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 py-4 px-2  shadow-xl z-10 rounded-lg">
+    <div className="fixed min-h-screen min-w-full top-0 flex items-end justify-center md:items-center z-10">
+        <div ref={modalRef} className="transform translate-y-24 md:-translate-y-24 bg-gray-900 px-3 py-2 rounded-lg flex flex-col gap-4 md:w-96 w-full shadow-2xl border border-white">
 
             <section className='py-5 px-2'>
                 {isFlashcardOpen ? <p className="font-semibold text-white text-lg">Do you want to delete this question?</p> : <p className="font-semibold text-white text-lg">Delete <span className="text-red-200">{categoryName}</span> category?</p>}
             </section>
             
-            <section className="flex gap-2">
+            <section className="flex gap-2 justify-end">
                 <Button 
                 // EVENT HANDLER OF BUTTON
                 handler={isFlashcardOpen ? 
@@ -32,7 +38,7 @@ function ConfirmationModal({categoryName, isFlashcardOpen, dispatch}) {
                     dispatch({type: 'REMOVE_CATEGORY'})
                     dispatch({type: 'SHOW_MESSAGE_MODAL', payload: {isMessageModalOpen: true, modalContent: 'Deleted Succesfully', isMessageError: false}})
                 }}
-                className="bg-red-900 text-white border border-white rounded-lg font-bold py-2 px-2 hover:bg-red-800 shadow w-30 md:w-72" 
+                className="bg-red-900 text-white border border-white rounded-lg font-bold py-2 px-2 hover:bg-red-800 shadow w-32 md:w-32" 
                 text="Yes"
                 />
 
@@ -41,10 +47,11 @@ function ConfirmationModal({categoryName, isFlashcardOpen, dispatch}) {
                 handler={() => {
                     dispatch({type: 'SHOW_CONFIRMATION', payload: {isConfirmationModalOpen: false, categoryID: 0, categoryName: ''}})
                 }}
-                className="bg-green-900 text-white border border-white rounded-lg font-bold py-2 px-2 hover:bg-green-800 shadow w-30 md:w-72" 
+                className="bg-green-900 text-white border border-white rounded-lg font-bold py-2 px-2 hover:bg-green-800 shadow w-32 md:w-32" 
                 text="No" 
                 />
             </section>
+        </div>
         </div>
     )
 }
