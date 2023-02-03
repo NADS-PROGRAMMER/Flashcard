@@ -117,7 +117,7 @@ function AddFlashcardModal({
                 </section>
                 
                 {/* BUTTON SECTION */}
-                <section className="flex gap-2 pb-2 pl-1">
+                <section className="flex justify-end gap-2 pb-2 pl-1">
                 <Button 
                     handler={
                     
