@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {useEffect, useState, useRef} from 'react'
 import Button from './Button'
 import {gsap} from 'gsap'
@@ -61,7 +62,12 @@ function QuestionsModal({dispatch, currentIndex, categories, questions}) {
         <div className="fixed min-h-screen min-w-full top-0 flex items-end justify-center md:items-center">
             <div ref={divRef} className="transform translate-y-24 md:-translate-y-24 bg-gray-900 px-3 py-2 rounded-lg flex flex-col gap-4 md:w-96 w-full shadow-2xl border border-white">
 
-                <section className="self-end cursor-pointer mb-2" onClick={() => dispatch({type: 'CLOSE_FLASHCARD', payload: {isFlashcardOpen: false}})}>✖</section>
+                <section className="self-end cursor-pointer mb-2" onClick={() => dispatch({type: 'CLOSE_FLASHCARD', payload: {isFlashcardOpen: false}})}>
+
+                    <a className='block w-5'>
+                        <svg fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/></svg>
+                    </a>
+                </section>
 
                 {currentQuestions.length > 0 && <div className="bg-gray-100  px-3 flex flex-col justify-between border border-white" onClick={() => setShow(!isShow)}>
 
