@@ -1,8 +1,8 @@
 import Header from './Components/Header'
 import Categories from './Components/Categories'
 import AddFlashcardModal from './Components/AddFlashcardModal'
-import React, {useReducer} from 'react'
-import {reducer} from './Javascripts/reducer'
+import React, { useReducer } from 'react'
+import { reducer } from './Javascripts/reducer'
 import MessageModal from './Components/MessageModal'
 import ConfirmationModal from './Components/ConfirmationModal'
 import QuestionsModal from './Components/QuestionsModal'
@@ -58,19 +58,19 @@ function App() {
   return (
     <div className="bg-gradient-to-b from-blue-900 to-gray-900 min-h-screen">
 
-      <Header disabled={state['delete'].isConfirmationModalOpen || state.openFlashcard.isFlashcardOpen || state.updateModal.isUpdateQuestionModalOpen} openModal={dispatch}/>
+      <Header disabled={state['delete'].isConfirmationModalOpen || state.openFlashcard.isFlashcardOpen || state.updateModal.isUpdateQuestionModalOpen} openModal={dispatch} />
 
-      <Categories 
+      <Categories
         disabled={state.isModalOpen || state.delete.isConfirmationModalOpen || state.openFlashcard.isFlashcardOpen || state.updateModal.isUpdateQuestionModalOpen}
-        dispatch={dispatch} 
+        dispatch={dispatch}
         categories={JSON.parse(localStorage.getItem('categories'))}
       />
 
-      {state.isModalOpen && 
-          <AddFlashcardModal 
-          categoryLength={state.categoryLength} 
-          descriptionLength={state.descriptionLength} 
-          isModalOpen={state.isModalOpen} 
+      {state.isModalOpen &&
+        <AddFlashcardModal
+          categoryLength={state.categoryLength}
+          descriptionLength={state.descriptionLength}
+          isModalOpen={state.isModalOpen}
           dispatch={dispatch}
           isUpdateModalOpen={state.update.isUpdateModalOpen}
           updateCategoryContent={state.update.updateCategoryContent}
@@ -78,18 +78,18 @@ function App() {
           isAddQuestionModalOpen={state.addQuestion.isAddQuestionModalOpen}
         />}
 
-        {state.message.isMessageModalOpen && 
-        
-          <MessageModal 
-          modalContent={state.message.modalContent}  
-          isMessageError={state.message.isMessageError} 
+      {state.message.isMessageModalOpen &&
+
+        <MessageModal
+          modalContent={state.message.modalContent}
+          isMessageError={state.message.isMessageError}
           dispatch={dispatch}
         />}
-        {state['delete'].isConfirmationModalOpen && <ConfirmationModal categoryName={state['delete'].categoryName} isFlashcardOpen={state['openFlashcard'].isFlashcardOpen} dispatch={dispatch}/>}
+      {state['delete'].isConfirmationModalOpen && <ConfirmationModal categoryName={state['delete'].categoryName} isFlashcardOpen={state['openFlashcard'].isFlashcardOpen} dispatch={dispatch} />}
 
-        {state['openFlashcard'].isFlashcardOpen && <QuestionsModal currentIndex={state.updateModal.index} categories={state.categories} dispatch={dispatch} questions={state.openFlashcard.questions}/>}
+      {state['openFlashcard'].isFlashcardOpen && <QuestionsModal currentIndex={state.updateModal.index} categories={state.categories} dispatch={dispatch} questions={state.openFlashcard.questions} />}
 
-        {state.updateModal.isUpdateQuestionModalOpen && <UpdateQuestionModal dispatch={dispatch} questionToBeUpdated={state.updateModal.question} answerToBeUpdated={state.updateModal.answer}/>}
+      {state.updateModal.isUpdateQuestionModalOpen && <UpdateQuestionModal dispatch={dispatch} questionToBeUpdated={state.updateModal.question} answerToBeUpdated={state.updateModal.answer} />}
     </div>
   );
 }

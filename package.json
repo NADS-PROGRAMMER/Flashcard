@@ -3,16 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^6.3.0",
+    "@craco/craco": "^7.1.0",
     "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "framer-motion": "^4.1.17",
     "gsap": "^3.7.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-scripts": "^5.0.1",
     "react-spring": "^9.2.4",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^3.4.0"
   },
   "scripts": {
     "start": "craco start",
@@ -39,8 +40,8 @@
     ]
   },
   "devDependencies": {
-    "autoprefixer": "^9.8.6",
-    "postcss": "^7.0.36",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.25",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.14"
   }
 }
