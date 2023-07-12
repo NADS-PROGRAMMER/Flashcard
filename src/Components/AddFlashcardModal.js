@@ -29,7 +29,7 @@ function AddFlashcardModal({
         document.body.style.overflow = 'hidden';
 
         return () => {
-            document.body.style.overflow = 'auto';
+            document.body.style.overflowY = 'auto';
         }
     }, [])
 
@@ -74,7 +74,7 @@ function AddFlashcardModal({
     //fixed opacity-0 -mt-10 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 px-3 py-2 rounded-lg flex flex-col gap-4 sm:w-96 shadow-2xl border border-white
 
     return (
-        <div className="fixed min-h-screen min-w-full top-0 flex items-end justify-center md:items-center">
+        <div className="fixed min-h-screen min-w-full top-0 flex items-end justify-center md:items-center bg-black bg-opacity-50">
             <div ref={divRef} className="transform translate-y-24 md:-translate-y-24 bg-gray-900 px-5 py-3 rounded-lg flex flex-col gap-4 md:w-96 w-full shadow-2xl rounded-tl-2xl rounded-tr-2xl md:rounded-bl-2xl md:rounded-br-2xl">
 
                 {/* TEXTFIELD */}
@@ -87,7 +87,7 @@ function AddFlashcardModal({
                         {!isAddQuestionModalOpen && <small className="text-white font-mono font-medium">{categoryLength}/45</small>}
                     </section>
 
-                    <input placeholder={!isAddQuestionModalOpen ? 'Enter category name' : 'Enter a question'} value={!isAddQuestionModalOpen ? category : question} onInput={!isAddQuestionModalOpen ? (e) => {
+                    <input placeholder={!isAddQuestionModalOpen ? 'Solar System...' : 'What is the third planet of our solar system?'} value={!isAddQuestionModalOpen ? category : question} onInput={!isAddQuestionModalOpen ? (e) => {
 
                         // Check if the number of characters is empty.
                         45 - e.target.value.length === -1 ? setCategory(prevValue => prevValue) : setCategory(e.target.value)
@@ -106,9 +106,9 @@ function AddFlashcardModal({
                     </section>
 
                     {isAddQuestionModalOpen ?
-                        <input placeholder='Enter an answer' value={answer} onInput={(e) => setAnswer(e.target.value)} className="border border-black py-2 px-1" type="text" name="" id="" />
+                        <input placeholder='Earth...' value={answer} onInput={(e) => setAnswer(e.target.value)} className="border border-black py-2 px-1" type="text" name="" id="" />
                         :
-                        <textarea placeholder='Enter category description' value={description} onInput={(e) => {
+                        <textarea placeholder='This is about solar system...' value={description} onInput={(e) => {
 
                             // Check if the number of characters is empty.
                             45 - e.target.value.length === -1 ? setDescription(prevValue => prevValue) : setDescription(e.target.value)
@@ -170,7 +170,9 @@ function AddFlashcardModal({
                                     }}
                         className="bg-gray-800 text-white font-bold py-2 px-3 transition-transform transform md:hover:scale-110 hover:bg-gray-600 shadow rounded-md"
                         text={isUpdateModalOpen ? "Update" : "Add"}
-                    />
+                    >
+                        {isUpdateModalOpen ? "Update" : "Add"}
+                    </Button>
 
 
                     {/* CANCEL BUTTON */}
@@ -184,7 +186,9 @@ function AddFlashcardModal({
 
                         className="bg-red-900 rounded-md p-3 font-bold text-white transition-all transform md:hover:scale-110 hover:bg-red-800 shadow"
 
-                        text="Cancel" />
+                        text="Cancel" >
+                        Cancel
+                    </Button>
                 </section>
             </div>
         </div>

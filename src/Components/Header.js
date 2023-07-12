@@ -1,5 +1,6 @@
 import React from 'react'
 import Button from './Button'
+import { FaPlus } from 'react-icons/fa6'
 import '../../src/index.css'
 
 /** A Header consist of Navbar
@@ -7,21 +8,25 @@ import '../../src/index.css'
  * openModal -> is a dispatch function that opens the modal.
  * disabled -> is a props that setups if the button should be disabled or not.
  */
-function Header({openModal, disabled}) {
-    
+function Header({ openModal, disabled }) {
+
     return (
         <nav className="flex flex-col-reverse items-start sm:flex-row sm:items-center sm:justify-between gap-1 px-5 pt-5 sm:px-10 sm:pt-0 mb-8 bg-gray-900 w-screen">
-            
+
             <div className="flex items-center gap-3">
                 <h1 className="text-3xl font-bold md:text-4xl text-blue-50">Flashcards</h1>
 
-                <Button disabled={disabled} className="bg-gray-900 font-bold py-2 px-4 hover:bg-gray-800 shadow md:py-2 md:px-4 md:w-20 text-white my-4 outline-none border border-white rounded-md transition-all transform hover:scale-110" 
-                text="New" 
-                handler={() => openModal({type: 'SHOW_MODAL'})}
-                
-                />
+                <Button disabled={disabled} className="bg-gray-900 font-bold py-2 px-4 hover:bg-gray-800 shadow md:py-2 md:px-4 md:max-w-md md:w-full text-white my-4 outline-none border border-white rounded-md transition-all transform hover:scale-110 flex items-center gap-2"
+                    text="New"
+                    handler={() => openModal({ type: 'SHOW_MODAL' })}
+
+                >
+                    <FaPlus />
+                    <h1>Add</h1>
+
+                </Button>
             </div>
-            
+
 
             <div className="flex gap-5">
 

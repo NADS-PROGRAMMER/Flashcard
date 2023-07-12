@@ -48,14 +48,18 @@ function UpdateQuestionModal({ dispatch, questionToBeUpdated, answerToBeUpdated 
                                 dispatch({ type: 'SHOW_MESSAGE_MODAL', payload: { isMessageModalOpen: true, modalContent: 'Question and answer must not be empty.', isMessageError: true } })
                         }}
                         className="bg-gray-800 font-bold py-2 px-2 hover:bg-gray-600 shadow text-white rounded-md transition-all transform md:hover:scale-110"
-                        text="Update" />
+                        text="Update" >
+                        Update
+                    </Button>
 
                     <Button
                         handler={() => {
                             dispatch({ type: 'SHOW_UPDATE_QUESTION_MODAL', payload: false })
                         }}
                         className="bg-red-900 font-bold py-2 px-3 hover:bg-red-800 shadow text-white rounded-md transition-all transform md:hover:scale-110"
-                        text="Cancel" />
+                        text="Cancel" >
+                        Cancel
+                    </Button>
                 </div>
             </div>
         </div>

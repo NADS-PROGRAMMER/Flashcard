@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import Button from './Button'
 import { gsap } from 'gsap'
+import { FaPen, FaTrash } from 'react-icons/fa6';
 
 function QuestionsModal({ dispatch, currentIndex, categories, questions }) {
 
@@ -78,7 +79,7 @@ function QuestionsModal({ dispatch, currentIndex, categories, questions }) {
 
                         {
                             isShow ?
-                                <p className="select-none text-center cursor-pointer text-green-700 text-2xl break-all font-bold">{content.answer}</p> : <p className="select-none text-center text-yellow-900 text-2xl break-words cursor-pointer font-bold">Show Answer</p>}
+                                <p className="select-none text-center cursor-pointer text-green-700 text-2xl break-word font-bold">{content.answer}</p> : <p className="select-none text-center text-yellow-900 text-2xl break-words cursor-pointer font-bold">Show Answer</p>}
                     </div>
 
                     <div className="py-2 pt-10 px-2 flex justify-evenly">
@@ -89,8 +90,11 @@ function QuestionsModal({ dispatch, currentIndex, categories, questions }) {
                                 dispatch({ type: 'SHOW_UPDATE_QUESTION_MODAL', payload: true })
                                 dispatch({ type: 'SETUP_UPDATE_QUESTION_MODAL', payload: { index: index, questionID: questions[index].id, question: questions[index].question, answer: questions[index].answer } })
                             }}
-                            className="font-bold text-lg text-blue-900"
-                            text="Update" />
+                            className="font-bold text-2xl text-blue-900"
+                            text="Update" >
+
+                            <FaPen />
+                        </Button>
 
                         {/* DELETE BUTTON */}
                         <Button
@@ -99,8 +103,10 @@ function QuestionsModal({ dispatch, currentIndex, categories, questions }) {
                                 dispatch({ type: 'SETUP_UPDATE_QUESTION_MODAL', payload: { index: -1, questionID: '', question: '', answer: '' } })
                                 { dispatch({ type: 'DELETE_QUESTION_CONFIRMATION', payload: content.id }) }
                             }}
-                            className="font-bold text-lg text-red-900"
-                            text="Delete" />
+                            className="font-bold text-2xl text-red-900"
+                            text="Delete" >
+                            <FaTrash />
+                        </Button>
                     </div>
                 </div>}
 
