@@ -11,6 +11,9 @@ function Categories({ dispatch, categories, disabled }) {
 
                 return (
                     <section
+                        tabIndex="0"
+                        ariaLabel={`${category['category']}`}
+                        role="button"
                         key={category.id}
                         className="flex flex-col jusitfy-around  gap-3 bg-gray-900 py-4 px-3 hover:scale-150 border-2 border-gray-800 max-w-sm w-full
                         shadow-2xl hover:bg-gray-900 hover:bg-opacity-90 cursor-pointer rounded-md transition-colors"
@@ -22,8 +25,22 @@ function Categories({ dispatch, categories, disabled }) {
                                         isFlashcardOpen: true,
                                         categoryID: category.id
                                     }
-                                })
-                        }>
+                                })}
+                        onKeyDown={
+                            (e) => {
+                                if (e.key === "Enter" || e.keyCode === 13) {
+                                    dispatch(
+                                        {
+                                            type: 'OPEN_FLASHCARD',
+                                            payload: {
+                                                isFlashcardOpen: true,
+                                                categoryID: category.id
+                                            }
+                                        })
+                                }
+                            }
+                        }
+                    >
 
                         <section className='relative'>
 
