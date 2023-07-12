@@ -87,7 +87,7 @@ function App() {
         />}
       {state['delete'].isConfirmationModalOpen && <ConfirmationModal categoryName={state['delete'].categoryName} isFlashcardOpen={state['openFlashcard'].isFlashcardOpen} dispatch={dispatch} />}
 
-      {state['openFlashcard'].isFlashcardOpen && <QuestionsModal currentIndex={state.updateModal.index} categories={state.categories} dispatch={dispatch} questions={state.openFlashcard.questions} />}
+      {state['openFlashcard'].isFlashcardOpen && <QuestionsModal currentIndex={0} categories={state.categories} dispatch={dispatch} questions={state.openFlashcard.questions} />}
 
       {state.updateModal.isUpdateQuestionModalOpen && <UpdateQuestionModal dispatch={dispatch} questionToBeUpdated={state.updateModal.question} answerToBeUpdated={state.updateModal.answer} />}
     </div>

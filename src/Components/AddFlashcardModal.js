@@ -117,7 +117,7 @@ function AddFlashcardModal({
                 </section>
 
                 {/* BUTTON SECTION */}
-                <section className="flex justify-end gap-2 pb-2 pl-1">
+                <section className="flex flex-col md:flex-row justify-end gap-2 pb-2 pl-1">
                     <Button
                         handler={
 
@@ -168,7 +168,7 @@ function AddFlashcardModal({
                                         else
                                             dispatch({ type: 'SHOW_MESSAGE_MODAL', payload: { isMessageModalOpen: true, modalContent: 'Input field empty', isMessageError: true } })
                                     }}
-                        className="bg-gray-900 border text-white border-white font-bold py-2 px-3 transition-transform transform hover:scale-110 hover:bg-gray-800 shadow rounded-md"
+                        className="bg-gray-800 text-white font-bold py-2 px-3 transition-transform transform md:hover:scale-110 hover:bg-gray-600 shadow rounded-md"
                         text={isUpdateModalOpen ? "Update" : "Add"}
                     />
 
@@ -182,7 +182,7 @@ function AddFlashcardModal({
 
                         }}
 
-                        className="bg-red-900 border border-white rounded-md p-3 font-bold text-white transition-all transform hover:scale-110 hover:bg-red-800 shadow"
+                        className="bg-red-900 rounded-md p-3 font-bold text-white transition-all transform md:hover:scale-110 hover:bg-red-800 shadow"
 
                         text="Cancel" />
                 </section>
