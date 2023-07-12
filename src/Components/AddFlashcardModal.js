@@ -75,7 +75,7 @@ function AddFlashcardModal({
 
     return (
         <div className="fixed min-h-screen min-w-full top-0 flex items-end justify-center md:items-center">
-            <div ref={divRef} className="transform translate-y-24 md:-translate-y-24 bg-gray-900 px-3 py-2 rounded-lg flex flex-col gap-4 md:w-96 w-full shadow-2xl border border-white">
+            <div ref={divRef} className="transform translate-y-24 md:-translate-y-24 bg-gray-900 px-5 py-3 rounded-lg flex flex-col gap-4 md:w-96 w-full shadow-2xl rounded-tl-2xl rounded-tr-2xl md:rounded-bl-2xl md:rounded-br-2xl">
 
                 {/* TEXTFIELD */}
                 <section className="flex flex-col">
